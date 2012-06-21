@@ -1,0 +1,117 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+@font-face{
+	font-family: myFirstFont;
+src: url('../fuentes/RussoOne-Regular.ttf'); 
+	
+}
+
+body{
+	font-family: myFirstFont;
+	background: -webkit-linear-gradient(top,  #36F 0%,  #FFF 100%);
+	background: -moz-linear-gradient(top,  #36F 0%,  #FFF 100%);
+	background: -o-linear-gradient(top,  #36F 0%,  #FFF 100%);
+	background: linear-gradient(top,  #36F 0%,  #FFF 100%);
+	
+}
+
+#encabezado{
+	font-size:36px;
+	text-shadow: 4px 4px 14px #009;
+	color:#FFF;
+	padding: 2px 2px 2px 5px;
+	background: -webkit-linear-gradient(top,  #004080 0%,  #FFF 150%);
+	background: -moz-linear-gradient(top,  #004080 0%,  #FFF 150%);
+	background: -o-linear-gradient(top,  #004080 0%,  #FFF 150%);
+	background: linear-gradient(top,  #004080 0%,  #FFF 150%);
+	height:80px;
+	width: 1195px;
+}
+
+#encabezado #logo{
+	float: left;
+	width:71px;
+	height:100%;
+	background: url(../imagenes/logo_unet.png) no-repeat;
+	background-size: contain;
+}
+
+#encabezado #logo2{
+	float: left;
+	width:300px;
+	height:100%;
+	background: url(../imagenes/logo.png) no-repeat;
+	background-size: contain;
+}
+
+#contenido{
+	height: 600px;
+	width: 1202px;
+	background-color:#333;
+}
+
+#menu_bloques{
+	float:left;
+	width:360px;
+	height:100%;
+	background-color: #999;
+}
+
+#menu_bloques #menu ul{
+	list-style:none; /* Eliminamos los bullets */
+    margin:0px; /* Quitamos los margenes */
+    padding:0px; /* Quitamos el padding */
+}
+
+#menu_bloques #menu ul li{
+	text-align:center;
+	font-size:13px;
+	display: inline;
+}
+
+#menu_bloques #menu ul li a{
+	background: #F7F9FB; 
+	padding-bottom: 2px; 
+	padding-top: 2px;
+	width:180px;
+	float:left; 
+	color: #000; 
+}
+
+#area_trabajo{
+	float:left;
+	width:482px;
+	height:100%;
+	background-color: #FFF;
+}
+
+#menu_derecho{
+	float:left;
+	width:360px;
+	height:100%;
+	background-color: #333;
+}
+
+#pie_pagina{
+	font-size:13px;
+	height:30px;
+}
+
+
+
+
+
+
+#scroll-pane,.scroll-pane { width:360px; height:93%;position:relative;}
+.scroll-content {position:absolute;top:0;left:0}
+.slider-wrap{position:absolute;right:0;top:0;background-color:lightgrey;width:20px;border-left:1px solid gray;}
+.slider-vertical{position:relative;height:100%}
+.ui-slider-handle{width:20px;height:10px;margin:0 auto;background-color:darkgray;display:block;position:absolute}
+.ui-slider-handle img{border:none}
+.scrollbar-top{position:absolute;top:0;}
+.scrollbar-bottom{position:absolute;bottom:0;}
+.scrollbar-grip{position:absolute;top:50%;margin-top:-6px;}
+.ui-slider-range{position:absolute;width:100%;background-color:lightgrey}
+

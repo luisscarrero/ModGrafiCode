@@ -1,0 +1,191 @@
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ModGrafiCode</title>
+<link rel="stylesheet" href="estilos/estilos.css">
+<link rel="stylesheet" href="estilos/bloques.css">
+
+<script src="scripts/jquery-1.7.2.js" type="text/javascript" charset="utf-8"></script>
+<script src="scripts/jquery.tabify.js" type="text/javascript" charset="utf-8"></script>
+<script src="scripts/jquery-ui-1.8.20.custom.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="scripts/vertical.slider.standard.js"></script>
+
+<script type="text/javascript">
+
+</script>
+<script type="text/javascript">
+	
+            $(document).ready(function () {
+                setSlider($('#scroll-pane'));
+				$('#menubloque').tabify();
+				$( "#sortable" ).sortable({
+					revert: true
+				});
+				$( ".drag" ).draggable({
+					connectToSortable: "#sortable",
+					containment: "#contenido",
+					helper: "clone",
+					revert: "invalid"
+				});
+				
+				
+
+            });
+</script>
+
+</head>
+
+<body>
+	<div class="encabezado" id="encabezado">
+    	<div id="logo"></div>
+        <div id="logo2"></div>
+        Modelador gr&aacute;fico de algoritmos
+	</div>
+    
+    <div id="contenido">
+    	
+        <div id="menu_bloques">
+        	<div id="menu">
+				 
+                 <ul id="menubloque" class="scrollable">
+    				<li class="active"><a href="#defi" style="background-color: #FA27EA;">Definicion</a></li>
+    				<li><a href="#opera" style="background-color: #090;">Operadores</a></li>
+    				<li><a href="#senten" style="background-color: #FF9900;">Sentencias</a></li>
+    				<li><a href="#outin" style="background-color: #0078F0;">Entrada y Salida</a></li>
+				</ul>
+               <div id="scroll-pane">
+                <div id="defi">
+                	Definicion:
+                   
+                    <div class="definicion bloque_sentencia drag" id="">Entero = <input size="1" type="text">;</div>
+                    
+                    Asignacion:
+                    <div class="definicion bloque_sentencia drag" id=""> <input size="1" type="text"> = <input size="1" type="text">;</div>
+                    
+                </div>
+                
+                <div id="opera">
+                	Operadores
+                    <br>
+                    Mayor: 
+                    <div id="" class="operador_logico drag">
+                     <div class="operadores_log_izq"></div>
+                     <div class="operadores_log_cen"> <input size="1" type="text"> > <input size="1" type="text">;</div>
+                     <div class="operadores_log_der"> </div>
+                    </div>
+                    <br>
+                    Menor:
+                    <div id="" class="operador_logico drag">
+                     <div class="operadores_log_izq"></div>
+                     <div class="operadores_log_cen"> <input size="1" type="text"> < <input size="1" type="text">;</div>
+                     <div class="operadores_log_der"> </div>
+                    </div>
+                    <br>
+                    Mayor igual:
+                    <div id="" class="operador_logico drag">
+                     <div class="operadores_log_izq"></div>
+                     <div class="operadores_log_cen"> <input size="1" type="text"> >= <input size="1" type="text">;</div>
+                     <div class="operadores_log_der"> </div>
+                    </div>
+                    <br>
+                    Menor igual:
+                    <div id="" class="operador_logico drag">
+                     <div class="operadores_log_izq"></div>
+                     <div class="operadores_log_cen"> <input size="1" type="text"> =< <input size="1" type="text">;</div>
+                     <div class="operadores_log_der"> </div>
+                    </div>
+                    <br>
+                    Igual a:
+                    <div id="" class="operador_logico drag">
+                     <div class="operadores_log_izq"></div>
+                     <div class="operadores_log_cen"> <input size="1" type="text"> == <input size="1" type="text">;</div>
+                     <div class="operadores_log_der"> </div>
+                    </div>
+                   <br>
+                    Diferente:
+                    <div id="" class="operador_logico drag">
+                     <div class="operadores_log_izq"></div>
+                     <div class="operadores_log_cen"> <input size="1" type="text"> != <input size="1" type="text">;</div>
+                     <div class="operadores_log_der"> </div>
+                    </div>
+                    <br>
+                    Suma:
+                   <div class="operador_mate drag"><input size="1" type="text"> + <input size="1" type="text">;</div>
+                    <br>
+                    Resta:
+                   <div class="operador_mate drag"><input size="1" type="text"> - <input size="1" type="text">;</div>
+                    <br>
+                    Multiplicacion:
+                   <div class="operador_mate drag"><input size="1" type="text"> * <input size="1" type="text">;</div>
+                    <br>
+                    Division:
+                   <div class="operador_mate drag"><input size="1" type="text"> / <input size="1" type="text">;</div>
+                    
+                </div>
+                
+                <div id="senten">
+                	Sentencias
+                    <br>
+                    Si
+                    <div class="sentencia_general drag">
+                      <div class="sen_sup_if"> Si <input size="1" type="text"> </div>
+                      <div class="sen_med"> </div>
+                      <div class="sen_med2">asa </div>
+                      <div class="sen_inf_if"> Fin Si</div>
+                    </div>
+                    <br>
+                    Para-hasta
+					<div class="sentencia_general drag">
+                      <div class="sen_sup_ph"> Para <input size="1" type="text"> hasta <input size="1" type="text"></div>
+                      <div class="sen_med"> </div>
+                      <div class="sen_med2">asa </div>
+                      <div class="sen_inf_ph"> Fin Para</div>
+                    </div>
+                    <br>
+                    Repita-hasta
+                    <div class="sentencia_general drag">
+                      <div class="sen_sup_rh"> Repita</div>
+                      <div class="sen_med"> </div>
+                      <div class="sen_med2">asa </div>
+                      <div class="sen_inf_rh"> hasta <input size="1" type="text"></div>
+                    </div>
+                    <br>
+                    Mientras
+                    <div class="sentencia_general drag">
+                      <div class="sen_sup_m"> Mientras <input size="1" type="text"></div>
+                      <div class="sen_med"> </div>
+                      <div class="sen_med2">asa </div>
+                      <div class="sen_inf_m"> Fin Mientras </div>
+                    </div>
+                    
+                </div>
+                
+                <div id="outin">
+                	Entrada y salida
+                </div>
+                
+                </div>
+                
+			</div>
+    	</div>
+        
+        
+        <div id="area_trabajo">
+        	<ul id="sortable">
+				<li>Inicio</li>
+			</ul>
+    	</div>
+        
+        
+        <div id="menu_derecho">
+    	</div>
+    </div>
+    
+    <div id="pie_pagina">
+        <center>Modelador grafico de algortimos</center>
+        <center>Carrero, Luis. Carvajal, Naila.</center>
+	</div>
+
+</body>
+</html>

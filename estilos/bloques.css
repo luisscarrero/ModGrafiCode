@@ -1,0 +1,128 @@
+@font-face{
+	font-family: myFont;
+	
+src: url('../fuentes/Questrial-Regular.ttf'); 
+	
+}
+.bloque_sentencia{
+	font-family: myFont;
+	font-size:13px;
+}
+
+.definicion {
+	padding-left: 5px;
+	background-color: #FA27EA;
+	border-radius: 10% / 50%;
+	height:28px;
+	width:110px;
+}
+
+.operadores_log_izq {
+    float:left;
+	height: 0px;
+	width: 0px;
+	border-top: 14px solid transparent;
+	border-bottom: 14px solid transparent;
+	border-right: 14px solid #090;
+}
+.operadores_log_cen {
+    float:left;
+	
+	background-color: #090;
+	height:28px;
+	width:120px;
+
+}
+.operadores_log_der{
+	
+	float:left;
+	height: 0px;
+	width: 0px;
+	border-top: 14px solid transparent;
+	border-bottom: 14px solid transparent;
+	border-left: 14px solid #090;
+}
+.operador_logico{
+	font-family: myFont;
+	height: 28px;
+	width: 200px;
+}
+.operador_mate{
+	padding-left: 5px;
+	background-color: #090;
+	border-radius: 10% / 50%;
+	height:28px;
+	width:115px;
+}
+.sentencia_general{
+	font-family: myFont;
+	height: 167px;
+	width: 200px;
+}
+.sen_sup_if{
+	background-color: #FF9900;
+	border-radius: 8px 8px 8px 0px;
+	height:32px;
+	width:130px;
+}
+.sen_medio{
+	height:210px;
+	width:135px;
+}
+.sen_med{
+	float:left;
+	background-color: #FF9900;
+	height:110px;
+	width: 15px;
+}
+.sen_med2{
+	float:left;
+	height: 110px;
+	width: 120px;
+}
+.sen_inf_if{
+	float:left;
+	background-color: #FF9900;
+	border-radius: 0px 8px 8px 8px;
+	height:28px;
+	width:115px;
+}
+.sen_sup_ph{
+	background-color: #FF9900;
+	border-radius: 8px 8px 8px 0px;
+	height:32px;
+	width:200px;
+}
+.sen_inf_ph{
+	float:left;
+	background-color: #FF9900;
+	border-radius: 0px 8px 8px 8px;
+	height:28px;
+	width:115px;
+}
+.sen_sup_rh{
+	background-color: #FF9900;
+	border-radius: 8px 8px 8px 0px;
+	height:32px;
+	width:130px;
+}
+.sen_inf_rh{
+	float:left;
+	background-color: #FF9900;
+	border-radius: 0px 8px 8px 8px;
+	height:28px;
+	width:150px;
+}
+.sen_sup_m{
+	background-color: #FF9900;
+	border-radius: 8px 8px 8px 0px;
+	height:32px;
+	width:200px;
+}
+.sen_inf_m{
+	float:left;
+	background-color: #FF9900;
+	border-radius: 0px 8px 8px 8px;
+	height:28px;
+	width:115px;
+}
