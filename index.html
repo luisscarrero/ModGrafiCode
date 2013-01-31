@@ -1,4 +1,3 @@
-
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -6,62 +5,50 @@
 <link rel="stylesheet" href="estilos/estilos.css">
 <link rel="stylesheet" href="estilos/bloques.css">
 
-<script src="scripts/jquery-1.7.2.js" type="text/javascript" charset="utf-8"></script>
-<script src="scripts/jquery.tabify.js" type="text/javascript" charset="utf-8"></script>
-<script src="scripts/jquery-ui-1.8.20.custom.min.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript" src="scripts/vertical.slider.standard.js"></script>
-
-<script type="text/javascript">
-
-</script>
-<script type="text/javascript">
-	
-            $(document).ready(function () {
-                setSlider($('#scroll-pane'));
-				$('#menubloque').tabify();
-				$( "#sortable" ).sortable({
-					revert: true
-				});
-				$( ".drag" ).draggable({
-					connectToSortable: "#sortable",
-					containment: "#contenido",
-					helper: "clone",
-					revert: "invalid"
-				});
-				
-				
-
-            });
-</script>
+<script src="scripts/jquery.min.js"></script>
+<script src="scripts/jquery-ui-1.9.2.custom.min.js"></script>
+<script src="scripts/app.js"></script>
 
 </head>
 
 <body>
+
+	<center>
 	<div class="encabezado" id="encabezado">
     	<div id="logo"></div>
         <div id="logo2"></div>
         Modelador gr&aacute;fico de algoritmos
 	</div>
     
-    <div id="contenido">
+    
+    
+    <div id="contenido" >
     	
         <div id="menu_bloques">
-        	<div id="menu">
-				 
-                 <ul id="menubloque" class="scrollable">
-    				<li class="active"><a href="#defi" style="background-color: #FA27EA;">Definicion</a></li>
-    				<li><a href="#opera" style="background-color: #090;">Operadores</a></li>
-    				<li><a href="#senten" style="background-color: #FF9900;">Sentencias</a></li>
-    				<li><a href="#outin" style="background-color: #0078F0;">Entrada y Salida</a></li>
+        	
+            <div id="menu">
+		
+                 <ul >
+    				<li><a href="#defi" style="background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffff4d), color-stop(100%,#ffff00));">Definicion</a></li>
+    				<li><a href="#opera" style="background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#00e600), color-stop(100%,#008000));">Operadores</a></li>
+    				<li><a href="#senten" style="background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffb84d), color-stop(100%,#ff9900));">Sentencias</a></li>
+    				<li><a href="#outin" style="background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#8ec6ff), color-stop(100%,#0078f0));">Entrada y Salida</a></li>
 				</ul>
-               <div id="scroll-pane">
+            
+             <div id="bloques" style=" overflow-x:hidden; overflow-y:auto; width:360px;
+	height:93%;">
                 <div id="defi">
+                
+
+                
                 	Definicion:
                    
-                    <div class="definicion bloque_sentencia drag" id="">Entero = <input size="1" type="text">;</div>
+                    <div class="definicion bloque_sentencia drag" >Entero = <input size="1" type="text">;</div>
                     
                     Asignacion:
-                    <div class="definicion bloque_sentencia drag" id=""> <input size="1" type="text"> = <input size="1" type="text">;</div>
+                    <div class="asignacion bloque_sentencia drag" ><select style="width:50px; height:24;">
+                      <option>Variable</option>
+                  </select> =<div class="fantasma" style="float:right; margin-right:50px;"><div class="input_ph"><input name="cantidad" type="text" size="5" style="border-radius: 20% / 50%;">;</div></div></div>
                     
                 </div>
                 
@@ -69,58 +56,58 @@
                 	Operadores
                     <br>
                     Mayor: 
-                    <div id="" class="operador_logico drag">
+                    <div id="" class="operador_logico mayor drag_op">
                      <div class="operadores_log_izq"></div>
                      <div class="operadores_log_cen"> <input size="1" type="text"> > <input size="1" type="text">;</div>
                      <div class="operadores_log_der"> </div>
                     </div>
                     <br>
                     Menor:
-                    <div id="" class="operador_logico drag">
+                    <div id="" class="operador_logico drag_op">
                      <div class="operadores_log_izq"></div>
                      <div class="operadores_log_cen"> <input size="1" type="text"> < <input size="1" type="text">;</div>
                      <div class="operadores_log_der"> </div>
                     </div>
                     <br>
                     Mayor igual:
-                    <div id="" class="operador_logico drag">
+                    <div id="" class="operador_logico drag_op">
                      <div class="operadores_log_izq"></div>
                      <div class="operadores_log_cen"> <input size="1" type="text"> >= <input size="1" type="text">;</div>
                      <div class="operadores_log_der"> </div>
                     </div>
                     <br>
                     Menor igual:
-                    <div id="" class="operador_logico drag">
+                    <div id="" class="operador_logico drag_op">
                      <div class="operadores_log_izq"></div>
                      <div class="operadores_log_cen"> <input size="1" type="text"> =< <input size="1" type="text">;</div>
                      <div class="operadores_log_der"> </div>
                     </div>
                     <br>
                     Igual a:
-                    <div id="" class="operador_logico drag">
+                    <div id="" class="operador_logico drag_op">
                      <div class="operadores_log_izq"></div>
                      <div class="operadores_log_cen"> <input size="1" type="text"> == <input size="1" type="text">;</div>
                      <div class="operadores_log_der"> </div>
                     </div>
                    <br>
                     Diferente:
-                    <div id="" class="operador_logico drag">
+                    <div id="" class="operador_logico drag_op">
                      <div class="operadores_log_izq"></div>
                      <div class="operadores_log_cen"> <input size="1" type="text"> != <input size="1" type="text">;</div>
                      <div class="operadores_log_der"> </div>
                     </div>
                     <br>
                     Suma:
-                   <div class="operador_mate drag"><input size="1" type="text"> + <input size="1" type="text">;</div>
+                   <div class="operador_mate drag_opm"><input size="1" type="text"> + <input size="1" type="text">;</div>
                     <br>
                     Resta:
-                   <div class="operador_mate drag"><input size="1" type="text"> - <input size="1" type="text">;</div>
+                   <div class="operador_mate drag_opm"><input size="1" type="text"> - <input size="1" type="text">;</div>
                     <br>
                     Multiplicacion:
-                   <div class="operador_mate drag"><input size="1" type="text"> * <input size="1" type="text">;</div>
+                   <div class="operador_mate drag_opm"><input size="1" type="text"> * <input size="1" type="text">;</div>
                     <br>
                     Division:
-                   <div class="operador_mate drag"><input size="1" type="text"> / <input size="1" type="text">;</div>
+                   <div class="operador_mate drag_opm"><input size="1" type="text"> / <input size="1" type="text">;</div>
                     
                 </div>
                 
@@ -128,62 +115,94 @@
                 	Sentencias
                     <br>
                     Si
-                    <div class="sentencia_general drag">
-                      <div class="sen_sup_if">Si<div class="sen_sup_if_tri_grande">
-                      	   <div class="sen_sup_if_tri_de"></div>
-                           <div class="sen_sup_if_tri_centro"></div>
-                           <div class="sen_sup_if_tri_iz"></div>
+                    <div class="sentencia_general_if drag">
+                      <div class="sen_sup_if_gen">Si<div class="sen_sup_if_tri_gran">
+                        <div class="fant" style="float:left;">
+                        <div class="input_op">
+                        	<div class="sen_sup_if_tri_de"></div>
+                           	<div class="sen_sup_if_tri_centro"></div>
+                           	<div class="sen_sup_if_tri_iz"></div>
+                         </div>
+                         </div>
+                            <select name="opcion1" class="opcion1" style="float:left;"><option>--</option><option>AND</option><option>OR</option></select>
                         </div>
+                        <div class="sen_sup_if_tri_gran drop2" style="display:none;"><div class="fant" style="float:left;"><div class="input_op"><div class="sen_sup_if_tri_de"></div><div class="sen_sup_if_tri_centro"></div><div class="sen_sup_if_tri_iz"></div></div></div></div>  
+                                       
                       </div>
-                      <div class="sen_med"> </div>
-                      <div class="sen_med2">asa </div>
-                      <div class="sen_inf_if"> Fin Si</div>
-                    </div>
+                      <div class="sen_med_if"></div>
+                      <div class="sen_med2_if">Inicio</div>
+                      <div class="sen_inf_if">Fin Si</div>
+                </div>
                     <br>
 
-                    Para-hasta
-					<div class="sentencia_general drag">
-                      <div class="sen_sup_ph"> Para <div class="sen_sup_ph_tri_grande">
-                      	   <div class="sen_sup_ph_tri_de"></div>
-                           <div class="sen_sup_ph_tri_centro"></div>
-                           <div class="sen_sup_ph_tri_iz"></div>
-                            </div> 
-                            hasta <div class="sen_sup_ph_tri_grande">
-                      	   <div class="sen_sup_ph_tri_de"></div>
-                           <div class="sen_sup_ph_tri_centro"></div>
-                           <div class="sen_sup_ph_tri_iz"></div>
-                           </div>
-                      </div>
-                      <div class="sen_med"> </div>
-                      <div class="sen_med2">asa </div>
-                      <div class="sen_inf_ph"> Fin Para</div>
+                    Repita
+					<div class="sentencia_general_ph drag">
+                      <div class="sen_sup_ph">Repita  <div class="fantasma" style="float:right; margin-right:50px;"><div class="input_ph"><input name="cantidad" type="text" size="5" style="border-radius: 20% / 50%;"></div></div></div>
+                      <div class="sen_med_ph"> </div>
+                      <div class="sen_med2_ph">Inicio</div>
+                      <div class="sen_inf_ph">Fin Repita</div>
                     </div>
                     <br>
+                    
                     Repita-hasta
-                    <div class="sentencia_general drag">
-                      <div class="sen_sup_rh"> Repita</div>
-                      <div class="sen_med"> </div>
-                      <div class="sen_med2">asa </div>
-                      <div class="sen_inf_rh"> hasta <div class="sen_sup_rh_tri_grande">
-                      	   <div class="sen_sup_rh_tri_de"></div>
-                           <div class="sen_sup_rh_tri_centro"></div>
-                           <div class="sen_sup_rh_tri_iz"></div>
+                    <div class="sentencia_general_rh drag">
+                      <div class="sen_sup_rh">Repita</div>
+                      <div class="sen_med_rh"></div>
+                      <div class="sen_med2_rh">Inicio</div>
+                      <div class="sen_inf_rh">Hasta<div class="sen_sup_rh_tri_gran">
+                      	  <div class="fant" style="float:left;">
+                       		 <div class="input_op">
+                        		<div class="sen_sup_rh_tri_de"></div>
+                           		<div class="sen_sup_rh_tri_centro"></div>
+                           		<div class="sen_sup_rh_tri_iz"></div>
+                        	 </div>
+                         </div>
+                            <select name="opcion" style="float:left;"><option>--</option><option>AND</option><option>OR</option></select>
                         </div>
+                        
+                        
+                        <div class="sen_sup_rh_tri_gran drop2" style="display:none;">
+                      	  <div class="fant" style="float:left;">
+                       		 <div class="input_op">
+                        		<div class="sen_sup_rh_tri_de"></div>
+                           		<div class="sen_sup_rh_tri_centro"></div>
+                           		<div class="sen_sup_rh_tri_iz"></div>
+                        	 </div>
+                         </div>
+                            
+                        </div>
+                        
                       </div>
                     </div>
                     <br>
 
                     Mientras
-                    <div class="sentencia_general drag">
-                      <div class="sen_sup_m"> Mientras <div class="sen_sup_m_tri_grande">
-                      	   <div class="sen_sup_m_tri_de"></div>
-                           <div class="sen_sup_m_tri_centro"></div>
-                           <div class="sen_sup_m_tri_iz"></div>
+                    <div class="sentencia_general_m drag">
+                      <div class="sen_sup_m">Mientras<div class="sen_sup_m_tri_gran">
+                      	  <div class="fant" style="float:left;">
+                        <div class="input_op">
+                        	<div class="sen_sup_m_tri_de"></div>
+                           	<div class="sen_sup_m_tri_centro"></div>
+                           	<div class="sen_sup_m_tri_iz"></div>
+                         </div>
+                         </div>
+                            <select name="opcion" style="float:left;"><option>--</option><option>AND</option><option>OR</option></select>
                         </div>
+                        
+                        <div class="sen_sup_m_tri_gran drop2" style="display:none;">
+                      	  <div class="fant" style="float:left;">
+                        <div class="input_op">
+                        	<div class="sen_sup_m_tri_de"></div>
+                           	<div class="sen_sup_m_tri_centro"></div>
+                           	<div class="sen_sup_m_tri_iz"></div>
+                         </div>
+                         </div>
+                        </div>
+                        
                       </div>
-                      <div class="sen_med"> </div>
-                      <div class="sen_med2">asa </div>
-                      <div class="sen_inf_m"> Fin Mientras </div>
+                      <div class="sen_med_m"> </div>
+                      <div class="sen_med2_m">Inicio</div>
+                      <div class="sen_inf_m">Fin Mientras</div>
                     </div>
 
                     
@@ -191,22 +210,47 @@
                 
                 <div id="outin">
                 	Entrada y salida
+                    <div class="entrada bloque_sentencia drag" id="">Entrada
+                    <select>
+                        <option>Variable</option>
+                      </select>
+                    ;</div>
+                    <br>
+                    <div class="salida  bloque_sentencia drag" id="">Salida 
+                      <select>
+                        <option>Variable</option>
+                      </select>
+                    ;</div>
+                    
+                    
+                    
+                    
+                </div>
                 </div>
                 
-                </div>
+                
                 
 			</div>
+    
     	</div>
         
         
-        <div id="area_trabajo">
-        	<ul id="sortable">
-				<li>Inicio</li>
-			</ul>
-    	</div>
+        <div id="area_trabajo" class="sortable" style=" overflow-x:hidden; overflow-y:auto;">Inserte aqui tu codigo</div>
+        
+       
         
         
         <div id="menu_derecho">
+        	<div id="entrada">Entrada: <input type="text" > <input type="button" value="Ingresar"></div>
+            
+        
+            <div id="salida">Salida <br> <textarea name="salida" cols="" rows="" readonly="readonly" style="resize: none; width:100%; height:90%;"></textarea> </div>
+            
+            <div id="info">Informacion</div>
+            
+        	<div id="basurero" class="basurero"><br>Eliminar aqui</div>
+            
+            <div id="info2"> <input type="button" value="Ejecutar Codigo"></div>
     	</div>
     </div>
     
@@ -214,6 +258,8 @@
         <center>Modelador grafico de algortimos</center>
         <center>Carrero, Luis. Carvajal, Naila.</center>
 	</div>
+    
+    </center>
 
 </body>
 </html>

@@ -1,7 +1,6 @@
 @font-face{
 	font-family: myFont;
-	
-src: url('../fuentes/Questrial-Regular.ttf'); 
+	src: url('../fuentes/Questrial-Regular.ttf'); 
 	
 }
 .bloque_sentencia{
@@ -10,11 +9,22 @@ src: url('../fuentes/Questrial-Regular.ttf');
 }
 
 .definicion {
-	padding-left: 5px;
-	background-color: #FA27EA;
-	border-radius: 10% / 50%;
+	padding-left: 8px;
+	/*background-color: #FF0; #FA27EA*/
+	border-radius: 10% / 10%;
 	height:28px;
-	width:110px;
+	width:115px;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffff4d), color-stop(100%,#ffff00));
+	background: -moz-linear-gradient(top,  #ffff4d 0%,  #ffff00 100%);
+}
+
+.asignacion {
+	padding-left: 8px;
+	background-color: #FF0; /*#FA27EA*/
+	border-radius: 10% / 10%;
+	height:28px;
+	width:240px;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffff4d), color-stop(100%,#ffff00));
 }
 /*---------------------------- OPERADORES LOGICOS ------------------------------*/
 .operadores_log_izq {
@@ -30,6 +40,7 @@ src: url('../fuentes/Questrial-Regular.ttf');
 	background-color: #090;
 	height:28px;
 	width:120px;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#00e600), color-stop(100%,#008000));
 
 }
 .operadores_log_der{
@@ -44,7 +55,7 @@ src: url('../fuentes/Questrial-Regular.ttf');
 .operador_logico{
 	font-family: myFont;
 	height: 28px;
-	width: 200px;
+	width: 150px;
 }
 .operador_mate{
 	padding-left: 5px;
@@ -52,56 +63,9 @@ src: url('../fuentes/Questrial-Regular.ttf');
 	border-radius: 10% / 50%;
 	height:28px;
 	width:115px;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#00e600), color-stop(100%,#008000));
 }
 /*---------------------------- SENTENCIAS ------------------------------*/
-.sentencia_general{
-	font-family: myFont;
-	height: 167px;
-	width: 200px;
-}
-					/*-------------IF---------------*/
-.sen_sup_if{
-	background-color: #FF9900;
-	border-radius: 8px 8px 8px 0px;
-	height:32px;
-	width:130px;
-}
-.sen_inf_if{
-	float:left;
-	background-color: #FF9900;
-	border-radius: 0px 8px 8px 8px;
-	height:28px;
-	width:115px;
-}
-.sen_sup_if_tri_grande{
-	padding: 5px;
-	float:right;
-	height: 20px;
-	width: 51px;	 
-}
-.sen_sup_if_tri_iz{
-	float:left;
-	height: 0px;
-	width:  0px;	
-	border-top: 10px solid transparent;
-	border-bottom: 10px solid transparent;
-	border-left: 10px solid #FFFFFF; 
-}
-.sen_sup_if_tri_centro{
-	float:left;
-	height: 20px;
-	width: 30px;
-	background-color: #FFF;	 
-}
-.sen_sup_if_tri_de{
-	float:left;
-	height: 0px;
-	width:  0px;	
-	border-top: 10px solid transparent;
-	border-bottom: 10px solid transparent;
-	border-right: 10px solid #FFFFFF; 
-}
-
 
 					/*--------------MEDIO DE TODAS---------------*/
 .sen_medio{
@@ -119,12 +83,87 @@ src: url('../fuentes/Questrial-Regular.ttf');
 	height: 110px;
 	width: 120px;
 }
+					/*-------------IF---------------*/
+					
+.sentencia_general_if{
+	font-family: myFont;
+	height: 140px;
+	width: 200px;
+}
+.sen_sup_if_gen{
+	/*background-color: #FF9900;*/
+	
+	border-radius: 8px 8px 8px 0px;
+	height:32px;
+	width:250px;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffb84d), color-stop(100%,#ff9900));
+}
+.sen_inf_if{
+	float:left;
+	background-color: #FF9900;
+	border-radius: 0px 8px 8px 8px;
+	height:28px;
+	width:115px;
+	background: -webkit-gradient(linear, right top, left bottom, color-stop(0%,#ffb84d), color-stop(100%,#ff9900));
+}
+.sen_sup_if_tri_gran{
+	padding: 5px;
+	float:right;
+	height: 20px;
+	width: 210px;	 
+}
+
+.sen_sup_if_tri_iz{
+	float:left;
+	height: 0px;
+	width:  0px;	
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent;
+	border-left: 10px solid #FFFFFF; 
+}
+.sen_sup_if_tri_centro{
+	float:left;
+	height: 20px;
+	width: 100px;
+	background-color: #FFF;	 
+}
+.sen_sup_if_tri_de{
+	float:left;
+	height: 0px;
+	width:  0px;	
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent;
+	border-right: 10px solid #FFFFFF; 
+}
+.sen_medio_if{
+	height:210px;
+	width:135px;
+}
+.sen_med_if{
+	float:left;
+	background-color: #FF9900;
+	height:80px;
+	width: 15px;
+}
+.sen_med2_if{
+	float:left;
+	height: 80px;
+	width: 120px;
+}
+
 					/*--------------PARA HASTA---------------*/
+					
+.sentencia_general_ph{
+	font-family: myFont;
+	height: 140px;
+	width: 200px;
+}					
 .sen_sup_ph{
 	background-color: #FF9900;
 	border-radius: 8px 8px 8px 0px;
 	height:32px;
-	width:200px;
+	width:250px;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffb84d), color-stop(100%,#ff9900));
 }
 .sen_inf_ph{
 	float:left;
@@ -132,6 +171,7 @@ src: url('../fuentes/Questrial-Regular.ttf');
 	border-radius: 0px 8px 8px 8px;
 	height:28px;
 	width:115px;
+	background: -webkit-gradient(linear, right top, left bottom, color-stop(0%,#ffb84d), color-stop(100%,#ff9900));
 }
 .sen_sup_ph_tri_grande{
 	padding: 2px;
@@ -161,25 +201,48 @@ src: url('../fuentes/Questrial-Regular.ttf');
 	border-bottom: 10px solid transparent;
 	border-right: 10px solid #FFFFFF; 
 }
+.sen_medio_ph{
+	height:210px;
+	width:135px;
+}
+.sen_med_ph{
+	float:left;
+	background-color: #FF9900;
+	height:80px;
+	width: 15px;
+}
+.sen_med2_ph{
+	float:left;
+	height: 80px;
+	width: 120px;
+}
 					/*--------------REPITA HASTA---------------*/
+
+.sentencia_general_rh{
+	font-family: myFont;
+	height: 145px;
+	width: 200px;
+}
 .sen_sup_rh{
 	background-color: #FF9900;
 	border-radius: 8px 8px 8px 0px;
 	height:32px;
 	width:130px;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffb84d), color-stop(100%,#ff9900));
 }
 .sen_inf_rh{
 	float:left;
 	background-color: #FF9900;
 	border-radius: 0px 8px 8px 8px;
-	height:28px;
-	width:150px;
+	height:32px;
+	width:290px;
+	background: -webkit-gradient(linear, right top, left bottom, color-stop(0%,#ffb84d), color-stop(100%,#ff9900));
 }
-.sen_sup_rh_tri_grande{
+.sen_sup_rh_tri_gran{
 	padding: 5px;
 	float:right;
 	height: 20px;
-	width: 51px;	 
+	width: 210px;	 
 }
 .sen_sup_rh_tri_iz{
 	float:left;
@@ -192,7 +255,7 @@ src: url('../fuentes/Questrial-Regular.ttf');
 .sen_sup_rh_tri_centro{
 	float:left;
 	height: 20px;
-	width: 30px;
+	width: 100px;
 	background-color: #FFF;	 
 }
 .sen_sup_rh_tri_de{
@@ -203,12 +266,34 @@ src: url('../fuentes/Questrial-Regular.ttf');
 	border-bottom: 10px solid transparent;
 	border-right: 10px solid #FFFFFF; 
 }
+.sen_medio_rh{
+	height:210px;
+	width:135px;
+}
+.sen_med_rh{
+	float:left;
+	background-color: #FF9900;
+	height:80px;
+	width: 15px;
+}
+.sen_med2_rh{
+	float:left;
+	height: 80px;
+	width: 120px;
+}
 					/*--------------MIENTRAS---------------*/
+					
+.sentencia_general_m{
+	font-family: myFont;
+	height: 140px;
+	width: 200px;
+}
 .sen_sup_m{
 	background-color: #FF9900;
 	border-radius: 8px 8px 8px 0px;
 	height:32px;
-	width:200px;
+	width:290px;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffb84d), color-stop(100%,#ff9900));
 }
 .sen_inf_m{
 	float:left;
@@ -216,12 +301,13 @@ src: url('../fuentes/Questrial-Regular.ttf');
 	border-radius: 0px 8px 8px 8px;
 	height:28px;
 	width:115px;
+	background: -webkit-gradient(linear, right top, left bottom, color-stop(0%,#ffb84d), color-stop(100%,#ff9900));
 }
-.sen_sup_m_tri_grande{
+.sen_sup_m_tri_gran{
 	padding: 5px;
 	float:right;
 	height: 20px;
-	width: 51px;	 
+	width: 210px;	 
 }
 .sen_sup_m_tri_iz{
 	float:left;
@@ -234,7 +320,7 @@ src: url('../fuentes/Questrial-Regular.ttf');
 .sen_sup_m_tri_centro{
 	float:left;
 	height: 20px;
-	width: 30px;
+	width: 100px;
 	background-color: #FFF;	 
 }
 .sen_sup_m_tri_de{
@@ -245,5 +331,36 @@ src: url('../fuentes/Questrial-Regular.ttf');
 	border-bottom: 10px solid transparent;
 	border-right: 10px solid #FFFFFF; 
 }
+.sen_medio_m{
+	height:210px;
+	width:135px;
+}
+.sen_med_m{
+	float:left;
+	background-color: #FF9900;
+	height:80px;
+	width: 15px;
+}
+.sen_med2_m{
+	float:left;
+	height: 80px;
+	width: 120px;
+}
+			/*--------------ENTRADA Y SALIDA---------------*/
 
-
+.entrada{
+	padding-left: 5px;
+	background-color: #0078F0; /*#FA27EA*/
+	border-radius: 10% / 10%;
+	height:28px;
+	width:160px;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#8ec6ff), color-stop(100%,#0078f0));
+}
+.salida{
+	padding-left: 5px;
+	background-color: #0078F0; /*#FA27EA*/
+	border-radius: 10% / 10%;
+	height:28px;
+	width:160px;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#8ec6ff), color-stop(100%,#0078f0));
+}
