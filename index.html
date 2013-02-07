@@ -5,9 +5,11 @@
 <link rel="stylesheet" href="estilos/estilos.css">
 <link rel="stylesheet" href="estilos/bloques.css">
 
+
 <script src="scripts/jquery.min.js"></script>
 <script src="scripts/jquery-ui-1.9.2.custom.min.js"></script>
 <script src="scripts/app.js"></script>
+<script src="scripts/parser.js"></script>
 
 </head>
 
@@ -15,11 +17,10 @@
 
 	<center>
 	<div class="encabezado" id="encabezado">
-    	<div id="logo"></div>
+    	<!--<div id="logo"></div>-->
         <div id="logo2"></div>
         Modelador gr&aacute;fico de algoritmos
 	</div>
-    
     
     
     <div id="contenido" >
@@ -29,10 +30,10 @@
             <div id="menu">
 		
                  <ul >
-    				<li><a href="#defi" style="background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffff4d), color-stop(100%,#ffff00));">Definicion</a></li>
-    				<li><a href="#opera" style="background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#00e600), color-stop(100%,#008000));">Operadores</a></li>
-    				<li><a href="#senten" style="background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffb84d), color-stop(100%,#ff9900));">Sentencias</a></li>
-    				<li><a href="#outin" style="background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#8ec6ff), color-stop(100%,#0078f0));">Entrada y Salida</a></li>
+    				<li><a href="#defi" style="background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffff4d), color-stop(100%,#ffff00));background: -moz-linear-gradient(top,  #ffff4d 0%,  #ffff00 100%);">Definicion</a></li>
+    				<li><a href="#opera" style="background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#00e600), color-stop(100%,#008000)); background: -moz-linear-gradient(top,  #00e600 0%,  #008000 100%);">Operadores</a></li>
+    				<li><a href="#senten" style="background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffb84d), color-stop(100%,#ff9900)); background: -moz-linear-gradient(top,  #ffb84d 0%,  #ff9900 100%);">Sentencias</a></li>
+    				<li><a href="#outin" style="background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#8ec6ff), color-stop(100%,#0078f0)); background: -moz-linear-gradient(top,  #8ec6ff 0%,  #0078f0 100%);">Entrada y Salida</a></li>
 				</ul>
             
              <div id="bloques" style=" overflow-x:hidden; overflow-y:auto; width:360px;
@@ -46,7 +47,7 @@
                     <div class="definicion bloque_sentencia drag" >Entero = <input size="1" type="text">;</div>
                     
                     Asignacion:
-                    <div class="asignacion bloque_sentencia drag" ><select style="width:50px; height:24;">
+                    <div class="asignacion bloque_sentencia drag" ><select>
                       <option>Variable</option>
                   </select> =<div class="fantasma" style="float:right; margin-right:50px;"><div class="input_ph"><input name="cantidad" type="text" size="5" style="border-radius: 20% / 50%;">;</div></div></div>
                     
@@ -58,56 +59,56 @@
                     Mayor: 
                     <div id="" class="operador_logico mayor drag_op">
                      <div class="operadores_log_izq"></div>
-                     <div class="operadores_log_cen"> <input size="1" type="text"> > <input size="1" type="text">;</div>
+                     <div class="operadores_log_cen"><div class="borrar" title="Eliminar"></div> <input size="1" type="text"> > <input size="1" type="text"></div>
                      <div class="operadores_log_der"> </div>
                     </div>
                     <br>
                     Menor:
-                    <div id="" class="operador_logico drag_op">
+                    <div id="" class="operador_logico menor drag_op">
                      <div class="operadores_log_izq"></div>
-                     <div class="operadores_log_cen"> <input size="1" type="text"> < <input size="1" type="text">;</div>
+                     <div class="operadores_log_cen"><div class="borrar" title="Eliminar"></div> <input size="1" type="text"> < <input size="1" type="text"></div>
                      <div class="operadores_log_der"> </div>
                     </div>
                     <br>
                     Mayor igual:
-                    <div id="" class="operador_logico drag_op">
+                    <div id="" class="operador_logico mayor_igual drag_op">
                      <div class="operadores_log_izq"></div>
-                     <div class="operadores_log_cen"> <input size="1" type="text"> >= <input size="1" type="text">;</div>
+                     <div class="operadores_log_cen"><div class="borrar" title="Eliminar"></div> <input size="1" type="text"> >= <input size="1" type="text"></div>
                      <div class="operadores_log_der"> </div>
                     </div>
                     <br>
                     Menor igual:
-                    <div id="" class="operador_logico drag_op">
+                    <div id="" class="operador_logico menor_igual drag_op">
                      <div class="operadores_log_izq"></div>
-                     <div class="operadores_log_cen"> <input size="1" type="text"> =< <input size="1" type="text">;</div>
+                     <div class="operadores_log_cen"><div class="borrar" title="Eliminar"></div> <input size="1" type="text"> <= <input size="1" type="text"></div>
                      <div class="operadores_log_der"> </div>
                     </div>
                     <br>
                     Igual a:
-                    <div id="" class="operador_logico drag_op">
+                    <div id="" class="operador_logico igual drag_op">
                      <div class="operadores_log_izq"></div>
-                     <div class="operadores_log_cen"> <input size="1" type="text"> == <input size="1" type="text">;</div>
+                     <div class="operadores_log_cen"><div class="borrar" title="Eliminar"></div> <input size="1" type="text"> == <input size="1" type="text"></div>
                      <div class="operadores_log_der"> </div>
                     </div>
                    <br>
                     Diferente:
-                    <div id="" class="operador_logico drag_op">
+                    <div id="" class="operador_logico diferente drag_op">
                      <div class="operadores_log_izq"></div>
-                     <div class="operadores_log_cen"> <input size="1" type="text"> != <input size="1" type="text">;</div>
+                     <div class="operadores_log_cen"><div class="borrar" title="Eliminar"></div> <input size="1" type="text"> != <input size="1" type="text"></div>
                      <div class="operadores_log_der"> </div>
                     </div>
                     <br>
                     Suma:
-                   <div class="operador_mate drag_opm"><input size="1" type="text"> + <input size="1" type="text">;</div>
+                   <div class="operador_mate suma drag_opm"><div class="borrar" title="Eliminar"></div><input size="1" type="text"> + <input size="1" type="text">;</div>
                     <br>
                     Resta:
-                   <div class="operador_mate drag_opm"><input size="1" type="text"> - <input size="1" type="text">;</div>
+                   <div class="operador_mate resta drag_opm"><div class="borrar" title="Eliminar"></div><input size="1" type="text"> - <input size="1" type="text">;</div>
                     <br>
                     Multiplicacion:
-                   <div class="operador_mate drag_opm"><input size="1" type="text"> * <input size="1" type="text">;</div>
+                   <div class="operador_mate multi drag_opm"><div class="borrar" title="Eliminar"></div><input size="1" type="text"> * <input size="1" type="text">;</div>
                     <br>
                     Division:
-                   <div class="operador_mate drag_opm"><input size="1" type="text"> / <input size="1" type="text">;</div>
+                   <div class="operador_mate division drag_opm"><div class="borrar" title="Eliminar"></div><input size="1" type="text"> / <input size="1" type="text">;</div>
                     
                 </div>
                 
@@ -115,7 +116,7 @@
                 	Sentencias
                     <br>
                     Si
-                    <div class="sentencia_general_if drag">
+                    <div class="sentencia_general_if drag sentencia">
                       <div class="sen_sup_if_gen">Si<div class="sen_sup_if_tri_gran">
                         <div class="fant" style="float:left;">
                         <div class="input_op">
@@ -135,21 +136,21 @@
                 </div>
                     <br>
 
-                    Repita
+                    Para-Hasta
 					<div class="sentencia_general_ph drag">
-                      <div class="sen_sup_ph">Repita  <div class="fantasma" style="float:right; margin-right:50px;"><div class="input_ph"><input name="cantidad" type="text" size="5" style="border-radius: 20% / 50%;"></div></div></div>
+                      <div class="sen_sup_ph">Para  <div class="fantasma" style="float:right; margin-right:50px;"><div class="input_ph"><input name="cantidad" type="text" size="5" style="border-radius: 20% / 50%;"></div></div></div>
                       <div class="sen_med_ph"> </div>
                       <div class="sen_med2_ph">Inicio</div>
-                      <div class="sen_inf_ph">Fin Repita</div>
+                      <div class="sen_inf_ph">Fin Para-Hasta</div>
                     </div>
                     <br>
                     
-                    Repita-hasta
+                    Haga-Mientras
                     <div class="sentencia_general_rh drag">
-                      <div class="sen_sup_rh">Repita</div>
+                      <div class="sen_sup_rh">Haga</div>
                       <div class="sen_med_rh"></div>
                       <div class="sen_med2_rh">Inicio</div>
-                      <div class="sen_inf_rh">Hasta<div class="sen_sup_rh_tri_gran">
+                      <div class="sen_inf_rh">Mientras<div class="sen_sup_rh_tri_gran">
                       	  <div class="fant" style="float:left;">
                        		 <div class="input_op">
                         		<div class="sen_sup_rh_tri_de"></div>
@@ -157,7 +158,7 @@
                            		<div class="sen_sup_rh_tri_iz"></div>
                         	 </div>
                          </div>
-                            <select name="opcion" style="float:left;"><option>--</option><option>AND</option><option>OR</option></select>
+                            <select name="opcion" class="opcion1" style="float:left;"><option>--</option><option>AND</option><option>OR</option></select>
                         </div>
                         
                         
@@ -177,7 +178,7 @@
                     <br>
 
                     Mientras
-                    <div class="sentencia_general_m drag">
+                    <div class="sentencia_general_m drag sentencia">
                       <div class="sen_sup_m">Mientras<div class="sen_sup_m_tri_gran">
                       	  <div class="fant" style="float:left;">
                         <div class="input_op">
@@ -186,7 +187,7 @@
                            	<div class="sen_sup_m_tri_iz"></div>
                          </div>
                          </div>
-                            <select name="opcion" style="float:left;"><option>--</option><option>AND</option><option>OR</option></select>
+                            <select name="opcion" class="opcion1" style="float:left;"><option>--</option><option>AND</option><option>OR</option></select>
                         </div>
                         
                         <div class="sen_sup_m_tri_gran drop2" style="display:none;">
@@ -204,19 +205,57 @@
                       <div class="sen_med2_m">Inicio</div>
                       <div class="sen_inf_m">Fin Mientras</div>
                     </div>
+                    
+                    <br>
+					Si-No
+                    <div class="sentencia_general_1if_else drag sentencia">
+                    	<div class="sen_sup_if_else_gen">Si<div class="sen_sup_if_else_tri_gran">
+                        <div class="fant" style="float:left;">
+                        <div class="input_op">
+                        	<div class="sen_sup_if_else_tri_de"></div>
+                           	<div class="sen_sup_if_else_tri_centro"></div>
+                           	<div class="sen_sup_if_else_tri_iz"></div>
+                         </div>
+                         </div>
+                            <select name="opcion1" class="opcion1" style="float:left;"><option>--</option><option>AND</option><option>OR</option></select>
+                        </div>
+                        <div class="sen_sup_if_else_tri_gran drop2" style="display:none;">
+                      	  <div class="fant" style="float:left;">
+                        <div class="input_op">
+                        	<div class="sen_sup_if_else_tri_de"></div>
+                           	<div class="sen_sup_if_else_tri_centro"></div>
+                           	<div class="sen_sup_if_else_tri_iz"></div>
+                         </div>
+                         </div>
+                        </div>                        
+                        </div>
+                        <div class="sen_med_if_else"><div class="sen_med2_if_else">Inicio</div></div>
+                        <div class="sen_medio_if_else">No</div>
+                        <div class="sen_med2p_if_else"><div class="sen_medos_if_else">Inicio</div></div>
+                        <div class="sen_inf_if_else">Fin Si-No</div>
+                    </div>
 
                     
                 </div>
                 
                 <div id="outin">
                 	Entrada y salida
-                    <div class="entrada bloque_sentencia drag" id="">Entrada
+                    <div class="entrada bloque_sentencia drag" id="">Entrada<input name="" type="text" size="10">
                     <select>
                         <option>Variable</option>
                       </select>
                     ;</div>
                     <br>
                     <div class="salida  bloque_sentencia drag" id="">Salida 
+                      <select>
+                        <option>Variable</option>
+                      </select>
+                    ;</div>
+                    <br>
+                    <div class="escribir bloque_sentencia drag" id="">Escribir <input name="" type="text" size="10"> ;</div>
+                    
+                    <br>
+                    <div class="escribir_salida bloque_sentencia drag" id="">Salida <input name="" type="text" size="10"> 
                       <select>
                         <option>Variable</option>
                       </select>
@@ -235,28 +274,31 @@
     	</div>
         
         
-        <div id="area_trabajo" class="sortable" style=" overflow-x:hidden; overflow-y:auto;">Inserte aqui tu codigo</div>
+        <div id="area_trabajo" class="sortable" style=" overflow-x:hidden; overflow-y:auto;">Arrastre aquí bloques para formar su algoritmo</div>
         
        
         
         
         <div id="menu_derecho">
-        	<div id="entrada">Entrada: <input type="text" > <input type="button" value="Ingresar"></div>
+        	<!--<div id="entrada">Entrada: <input type="text" > <input type="button" value="Ingresar" onClick="Controlador.agregarEntrada(this.value)"></div>-->
             
         
-            <div id="salida">Salida <br> <textarea name="salida" cols="" rows="" readonly="readonly" style="resize: none; width:100%; height:90%;"></textarea> </div>
+            <div id="salida">Salida del Algoritmo: <br> <textarea id="area_salida" name="salida" cols="" rows="" readonly="readonly" style="resize: none; width:100%; height:90%; "></textarea> </div>
             
-            <div id="info">Informacion</div>
+            <div id="info">Informacion de la aplicación: <textarea id="info_salida" name="info_salida" cols="" rows="" readonly="readonly" style="resize: none; width:100%; height:79%;"></textarea> <input type="button" value="Borrar Consola" onClick='$("#info_salida").attr("value","");'></div>
             
-        	<div id="basurero" class="basurero"><br>Eliminar aqui</div>
+        	<div id="basurero" class="basurero">Arrastre aquí <br>
+        	  el bloque a eliminar</div>
             
-            <div id="info2"> <input type="button" value="Ejecutar Codigo"></div>
+            <div id="info2" onClick="Controlador.iniciarCodigo()">  Ejecutar Codigo </div>
     	</div>
     </div>
     
     <div id="pie_pagina">
-        <center>Modelador grafico de algortimos</center>
-        <center>Carrero, Luis. Carvajal, Naila.</center>
+        <center>
+        Modelador grafico de algoritmos
+        </center>
+        <center>Carrero, Luis - Carvajal, Naila</center>
 	</div>
     
     </center>

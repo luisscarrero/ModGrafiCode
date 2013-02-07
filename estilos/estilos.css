@@ -7,10 +7,28 @@
 	src: url('../fuentes/RussoOne-Regular.ttf'); 
 }
 
-.higlight {background-color: silver;}
+.higlight {
+	background-color: silver;
+}
 .ui-tabs-hide
 {
   display: none
+}
+
+input[type='text']{
+	text-align:center;
+}
+
+.opcion1{
+	width:53px; 
+	height:22; 
+	margin-top:1px;
+}
+
+select{
+	width:75px; 
+	height:22; 
+	margin-top:1px;
 }
 
 body{
@@ -65,7 +83,7 @@ body{
 	width:360px;
 	height:100%;
 	background-color: #e1e1e1;
-	
+	-webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none;
 }
 
 #menu_bloques #menu ul{
@@ -90,10 +108,13 @@ body{
 }
 
 #area_trabajo{
+	font-size:14px;
 	float:left;
 	width:482px;
 	height:100%;
 	background-color: #FFF;
+	-webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none;
+
 }
 
 #menu_derecho{
@@ -119,8 +140,10 @@ body{
 }
 
 #menu_derecho #info{
-	width:100%;
-	height:25%;
+	padding:2%;
+	font-size:14px;
+	width:96%;
+	height:34.5%;
 	background-color:#4f8eff;
 	overflow-x:hidden;
 	overflow-y:auto;
@@ -132,7 +155,18 @@ body{
 	background-position:center;
 	float:left;
 	width:50%;
-	height:25%;
+	height:23%;
+	background-color:#C00;
+	text-align:center;
+
+}
+
+.dia{
+	background-repeat:no-repeat;
+	background-position:center;
+	float:left;
+	width:250;
+	height:250;
 	background-color:#C00;
 	text-align:center;
 
@@ -144,7 +178,7 @@ body{
 	background-position:center;
 	float:left;
 	width:50%;
-	height:25%;
+	height:23%;
 	background-color:#95bbff;
 	text-align:center;
 }
@@ -152,9 +186,14 @@ body{
 
 
 #menu_derecho #info2{
+	text-align:center;
+	background-image:url(../imagenes/Play-Normal-icon.png);
+	background-repeat:no-repeat;
+	background-position:center;
+	cursor:pointer;
 	float:left;
 	width:50%;
-	height:25%;
+	height:23%;
 	background-color:#cacaca;
 }
 
