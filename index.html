@@ -19,7 +19,7 @@
 	<div class="encabezado" id="encabezado">
     	<!--<div id="logo"></div>-->
         <div id="logo2"></div>
-        Modelador gr&aacute;fico de algoritmos
+       	             	 Modelador gr&aacute;fico de algoritmos
 	</div>
     
     
@@ -44,12 +44,12 @@
                 
                 	Definicion:
                    
-                    <div class="definicion bloque_sentencia drag" >Entero = <input size="1" type="text">;</div>
+                    <div class="definicion bloque_sentencia drag" >Entero = <input class="" size="10" type="text" >;</div>
                     
                     Asignacion:
                     <div class="asignacion bloque_sentencia drag" ><select>
                       <option>Variable</option>
-                  </select> =<div class="fantasma" style="float:right; margin-right:50px;"><div class="input_ph"><input name="cantidad" type="text" size="5" style="border-radius: 20% / 50%;">;</div></div></div>
+                  </select> =<div class="fantasma" style="float:right; margin-right:50px;"><div class="input_ph"><input name="cantidad" type="text" size="12" style="border-radius: 20% / 50%;">;</div></div></div>
                     
                 </div>
                 
@@ -62,51 +62,51 @@
                      <div class="operadores_log_cen"><div class="borrar" title="Eliminar"></div> <input size="1" type="text"> > <input size="1" type="text"></div>
                      <div class="operadores_log_der"> </div>
                     </div>
-                    <br>
+                    
                     Menor:
                     <div id="" class="operador_logico menor drag_op">
                      <div class="operadores_log_izq"></div>
                      <div class="operadores_log_cen"><div class="borrar" title="Eliminar"></div> <input size="1" type="text"> < <input size="1" type="text"></div>
                      <div class="operadores_log_der"> </div>
                     </div>
-                    <br>
+                    
                     Mayor igual:
                     <div id="" class="operador_logico mayor_igual drag_op">
                      <div class="operadores_log_izq"></div>
                      <div class="operadores_log_cen"><div class="borrar" title="Eliminar"></div> <input size="1" type="text"> >= <input size="1" type="text"></div>
                      <div class="operadores_log_der"> </div>
                     </div>
-                    <br>
+                   
                     Menor igual:
                     <div id="" class="operador_logico menor_igual drag_op">
                      <div class="operadores_log_izq"></div>
                      <div class="operadores_log_cen"><div class="borrar" title="Eliminar"></div> <input size="1" type="text"> <= <input size="1" type="text"></div>
                      <div class="operadores_log_der"> </div>
                     </div>
-                    <br>
+                   
                     Igual a:
                     <div id="" class="operador_logico igual drag_op">
                      <div class="operadores_log_izq"></div>
                      <div class="operadores_log_cen"><div class="borrar" title="Eliminar"></div> <input size="1" type="text"> == <input size="1" type="text"></div>
                      <div class="operadores_log_der"> </div>
                     </div>
-                   <br>
+                  
                     Diferente:
                     <div id="" class="operador_logico diferente drag_op">
                      <div class="operadores_log_izq"></div>
                      <div class="operadores_log_cen"><div class="borrar" title="Eliminar"></div> <input size="1" type="text"> != <input size="1" type="text"></div>
                      <div class="operadores_log_der"> </div>
                     </div>
-                    <br>
+                   
                     Suma:
                    <div class="operador_mate suma drag_opm"><div class="borrar" title="Eliminar"></div><input size="1" type="text"> + <input size="1" type="text">;</div>
-                    <br>
+                   
                     Resta:
                    <div class="operador_mate resta drag_opm"><div class="borrar" title="Eliminar"></div><input size="1" type="text"> - <input size="1" type="text">;</div>
-                    <br>
+                    
                     Multiplicacion:
                    <div class="operador_mate multi drag_opm"><div class="borrar" title="Eliminar"></div><input size="1" type="text"> * <input size="1" type="text">;</div>
-                    <br>
+                   
                     Division:
                    <div class="operador_mate division drag_opm"><div class="borrar" title="Eliminar"></div><input size="1" type="text"> / <input size="1" type="text">;</div>
                     
@@ -138,7 +138,10 @@
 
                     Para-Hasta
 					<div class="sentencia_general_ph drag">
-                      <div class="sen_sup_ph">Para  <div class="fantasma" style="float:right; margin-right:50px;"><div class="input_ph"><input name="cantidad" type="text" size="5" style="border-radius: 20% / 50%;"></div></div></div>
+                      <div class="sen_sup_ph">Para
+                      <select>
+                      <option>Variable</option>
+                  </select>Inicio<input size="3" type="text">Fin<input size="3" type="text"></div>
                       <div class="sen_med_ph"> </div>
                       <div class="sen_med2_ph">Inicio</div>
                       <div class="sen_inf_ph">Fin Para-Hasta</div>
@@ -285,7 +288,8 @@
         
             <div id="salida">Salida del Algoritmo: <br> <textarea id="area_salida" name="salida" cols="" rows="" readonly="readonly" style="resize: none; width:100%; height:90%; "></textarea> </div>
             
-            <div id="info">Informacion de la aplicación: <textarea id="info_salida" name="info_salida" cols="" rows="" readonly="readonly" style="resize: none; width:100%; height:79%;"></textarea> <input type="button" value="Borrar Consola" onClick='$("#info_salida").attr("value","");'></div>
+            <div id="info">Informacion de la aplicación: <textarea id="info_salida" name="info_salida" cols="" rows="" readonly="readonly" style="resize: none; width:100%; height:79%;"></textarea> <input type="button" value="Borrar Consola" onClick='$("#info_salida").attr("value","");'>
+            <a style="float:right; padding-top:8px;" id="codigo_salida" href="data:text/html, " target="_blank" onClick="Controlador.iniciarCodigodos();window.open(this.href, this.target, 'width=500,height=400'); return false;">Ver codigo del Algoritmo</a></div>
             
         	<div id="basurero" class="basurero">Arrastre aquí <br>
         	  el bloque a eliminar</div>

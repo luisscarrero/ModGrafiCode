@@ -21,17 +21,20 @@
 .definicion {
 	padding-left: 8px;
 	/*background-color: #FF0; #FA27EA*/
-	border-radius: 10% / 10%;
 	height:28px;
-	width:115px;
+	width:160px;
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffff4d), color-stop(100%,#ffff00));
 	background: -moz-linear-gradient(top,  #ffff4d 0%,  #ffff00 100%);
+}
+
+.errores{
+	box-shadow: inset 0px 0px 2.5px 2.5px #D90000;
+	border:none;
 }
 
 .asignacion {
 	padding-left: 8px;
 	background-color: #FF0; /*#FA27EA*/
-	border-radius: 10% / 10%;
 	height:32px;
 	width:260px;
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffff4d), color-stop(100%,#ffff00));
@@ -102,13 +105,13 @@
 					
 .sentencia_general_if{
 	font-family: myFont;
-	height: 140px;
+	height: 100px;
 	width: 200px;
 }
 .sen_sup_if_gen{
 	/*background-color: #FF9900;*/
 	
-	border-radius: 8px 8px 8px 0px;
+	border-radius: 0px 8px 8px 0px;
 	height:32px;
 	width:250px;
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffb84d), color-stop(100%,#ff9900));
@@ -117,7 +120,7 @@
 .sen_inf_if{
 	float:left;
 	background-color: #FF9900;
-	border-radius: 0px 8px 8px 8px;
+	border-radius: 0px 8px 8px 0px;
 	height:28px;
 	width:115px;
 	background: -webkit-gradient(linear, right top, left bottom, color-stop(0%,#ffb84d), color-stop(100%,#ff9900));
@@ -159,24 +162,24 @@
 .sen_med_if{
 	float:left;
 	background-color: #FF9900;
-	height:80px;
+	height:40px;
 	width: 15px;
 }
 .sen_med2_if{
 	float:left;
-	height: 80px;
-	width: 120px;
+	height: 40px;
+	width: 180px;
 }
 
 					/*--------------SI NO---------------*/
 .sentencia_general_1if_else{
 	font-family: myFont;
-	height: 253px;
+	height: 173px;
 	width: 200px;
 }
 .sen_sup_if_else_gen{
 	/*background-color: #FF9900;*/
-	border-radius: 8px 8px 8px 0px;
+	border-radius: 0px 8px 8px 0px;
 	height:32px;
 	width:250px;
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffb84d), color-stop(100%,#ff9900));
@@ -213,13 +216,13 @@
 .sen_med_if_else{
 
 	background-color: #FF9900;
-	height:80px;
+	height:40px;
 	width: 15px;
 }
 .sen_med2p_if_else{
 
 	background-color: #FF9900;
-	height:80px;
+	height:40px;
 	width: 15px;
 }
 .sen_medio_if_else{
@@ -232,19 +235,19 @@
 .sen_med2_if_else{
 	margin-left:15px;
 	float:left;
-	height: 80px;
-	width: 120px;
+	height: 40px;
+	width: 180px;
 }
 .sen_medos_if_else{
 	margin-left:15px;
 	float:left;
-	height: 80px;
-	width: 120px;
+	height: 40px;
+	width: 180px;
 }
 .sen_inf_if_else{
 
 	background-color: #FF9900;
-	border-radius: 0px 8px 8px 8px;
+	border-radius: 0px 8px 8px 0px;
 	height:28px;
 	width:150px;
 	background: -webkit-gradient(linear, right top, left bottom, color-stop(0%,#ffb84d), color-stop(100%,#ff9900));
@@ -256,14 +259,14 @@
 					
 .sentencia_general_ph{
 	font-family: myFont;
-	height: 140px;
+	height: 100px;
 	width: 200px;
 }					
 .sen_sup_ph{
 	background-color: #FF9900;
-	border-radius: 8px 8px 8px 0px;
+	border-radius: 0px 8px 8px 0px;
 	height:32px;
-	width:250px;
+	width:290px;
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffb84d), color-stop(100%,#ff9900));
 	background: -moz-linear-gradient(top,  #ffb84d 0%,  #ff9900 100%);
 
@@ -271,7 +274,7 @@
 .sen_inf_ph{
 	float:left;
 	background-color: #FF9900;
-	border-radius: 0px 8px 8px 8px;
+	border-radius: 0px 8px 8px 0px;
 	height:28px;
 	width:115px;
 	background: -webkit-gradient(linear, right top, left bottom, color-stop(0%,#ffb84d), color-stop(100%,#ff9900));
@@ -313,24 +316,24 @@
 .sen_med_ph{
 	float:left;
 	background-color: #FF9900;
-	height:80px;
+	height:40px;
 	width: 15px;
 }
 .sen_med2_ph{
 	float:left;
-	height: 80px;
-	width: 120px;
+	height: 40px;
+	width: 180px;
 }
 					/*--------------REPITA HASTA---------------*/
 
 .sentencia_general_rh{
 	font-family: myFont;
-	height: 140px;
+	height: 100px;
 	width: 200px;
 }
 .sen_sup_rh{
 	background-color: #FF9900;
-	border-radius: 8px 8px 8px 0px;
+	border-radius: 0px 8px 8px 0px;
 	height:28px;
 	width:130px;
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffb84d), color-stop(100%,#ff9900));
@@ -339,7 +342,7 @@
 .sen_inf_rh{
 	float:left;
 	background-color: #FF9900;
-	border-radius: 0px 8px 8px 8px;
+	border-radius: 0px 8px 8px 0px;
 	height:32px;
 	width:290px;
 	background: -webkit-gradient(linear, right top, left bottom, color-stop(0%,#ffb84d), color-stop(100%,#ff9900));
@@ -380,24 +383,24 @@
 .sen_med_rh{
 	float:left;
 	background-color: #FF9900;
-	height:80px;
+	height:40px;
 	width: 15px;
 }
 .sen_med2_rh{
 	float:left;
-	height: 80px;
-	width: 120px;
+	height: 40px;
+	width: 180px;
 }
 					/*--------------MIENTRAS---------------*/
 					
 .sentencia_general_m{
 	font-family: myFont;
-	height: 140px;
+	height: 100px;
 	width: 200px;
 }
 .sen_sup_m{
 	background-color: #FF9900;
-	border-radius: 8px 8px 8px 0px;
+	border-radius: 0px 8px 8px 0px;
 	height:32px;
 	width:290px;
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffb84d), color-stop(100%,#ff9900));
@@ -407,7 +410,7 @@
 .sen_inf_m{
 	float:left;
 	background-color: #FF9900;
-	border-radius: 0px 8px 8px 8px;
+	border-radius: 0px 8px 8px 0px;
 	height:28px;
 	width:115px;
 	background: -webkit-gradient(linear, right top, left bottom, color-stop(0%,#ffb84d), color-stop(100%,#ff9900));
@@ -449,20 +452,19 @@
 .sen_med_m{
 	float:left;
 	background-color: #FF9900;
-	height:80px;
+	height:40px;
 	width: 15px;
 }
 .sen_med2_m{
 	float:left;
-	height: 80px;
-	width: 120px;
+	height: 40px;
+	width: 180px;
 }
 			/*--------------ENTRADA Y SALIDA---------------*/
 
 .entrada{
 	padding-left: 5px;
 	background-color: #0078F0; /*#FA27EA*/
-	border-radius: 10% / 10%;
 	height:28px;
 	width:250px;
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#8ec6ff), color-stop(100%,#0078f0));
@@ -472,7 +474,6 @@
 .salida{
 	padding-left: 5px;
 	background-color: #0078F0; /*#FA27EA*/
-	border-radius: 10% / 10%;
 	height:28px;
 	width:160px;
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#8ec6ff), color-stop(100%,#0078f0));
@@ -481,7 +482,6 @@
 .escribir{
 	padding-left: 5px;
 	background-color: #0078F0; /*#FA27EA*/
-	border-radius: 10% / 10%;
 	height:28px;
 	width:160px;
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#8ec6ff), color-stop(100%,#0078f0));
@@ -490,7 +490,6 @@
 .escribir_salida{
 	padding-left: 5px;
 	background-color: #0078F0; /*#FA27EA*/
-	border-radius: 10% / 10%;
 	height:28px;
 	width:250px;
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#8ec6ff), color-stop(100%,#0078f0));

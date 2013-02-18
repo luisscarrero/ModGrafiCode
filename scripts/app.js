@@ -83,6 +83,19 @@ Modelo = {
 			"diferente":"!="
 		};
 		
+		this.op3 = {
+			"suma": "+",
+			"resta": "-",
+			"multi": "*",
+			"division": "/",
+			"mayor": ">",
+			"menor": "<",
+			"mayor_igual": ">=",
+			"menor_igual": "<=",
+			"igual": "=",
+			"diferente":"<>"
+		};
+		
 		this.esOperadorLogico = function (){
 			if(this.tipoOperador == "suma" && this.tipoOperador == "resta" && this.tipoOperador == "multi" && this.tipoOperador == "division"){
 				return false;
@@ -120,6 +133,10 @@ Modelo = {
 			return this.operIzquierdo+this.op2[this.tipoOperador]+this.operDerecho;
 		}
 		
+		this.operacionN=function(){
+			return this.operIzquierdo+this.op3[this.tipoOperador]+this.operDerecho;
+		}
+		
 		
 	},
 	
@@ -147,9 +164,19 @@ Modelo = {
 		
 		this.salida = function(){
 			if(this.texto!=null && this.variable==null){
-				return this.texto;
+				return '"'+this.texto+'"';
 			}else if(this.texto!=null && this.variable!=null){
-				return this.texto+this.variable;
+				return '"'+this.texto+'", '+this.variable;
+			}else if(this.texto==null && this.variable!=null){
+				return this.variable;
+			}
+		},
+		
+		this.salidaCpp = function(){
+			if(this.texto!=null && this.variable==null){
+				return '"'+this.texto+'"';
+			}else if(this.texto!=null && this.variable!=null){
+				return '"'+this.texto+'" &lt;&lt; '+this.variable;
 			}else if(this.texto==null && this.variable!=null){
 				return this.variable;
 			}
@@ -200,19 +227,60 @@ Modelo = {
 				}
 			
 				if(puerta=="AND"&& this.condicion1!=null && this.condicion2!=null){
-					return  this.condicion1.operacion() +" y "+ this.condicion2.operacion();
+					return  this.condicion1.operacion() +" && "+ this.condicion2.operacion();
 				}
 			
 				if(puerta=="OR"&& this.condicion1!=null && this.condicion2!=null){
-					return  this.condicion1.operacion() +" ó "+ this.condicion2.operacion();
+					return  this.condicion1.operacion() +" || "+ this.condicion2.operacion();
 				}
 			}else{
-				if(this.condicion1 instanceof Modelo.Operador){
+				
+				return this.puerta+"="+this.condicion1+" Hasta "+this.puerta+"<="+this.condicion2;
+				
+			}
+		},
+		
+		this.condicionpse = function(){
+			if(tipo!="ph"){
+				if(this.condicion1==null && this.condicion2==null){
+					return null;
+				}else if(puerta=="--"&& this.condicion1!=null){
 					return this.condicion1.operacion();
-				}else{
-					
-					return this.condicion1;
 				}
+			
+				if(puerta=="AND"&& this.condicion1!=null && this.condicion2!=null){
+					return  this.condicion1.operacion() +" Y "+ this.condicion2.operacion();
+				}
+			
+				if(puerta=="OR"&& this.condicion1!=null && this.condicion2!=null){
+					return  this.condicion1.operacion() +" O "+ this.condicion2.operacion();
+				}
+			}else{
+				
+				return this.puerta+"="+this.condicion1+" Hasta "+this.puerta+"<="+this.condicion2;
+				
+			}
+		},
+		
+		this.condicionN = function(){
+			if(tipo!="ph"){
+				if(this.condicion1==null && this.condicion2==null){
+					return null;
+				}else if(puerta=="--"&& this.condicion1!=null){
+					return this.condicion1.operacionN();
+				}
+			
+				if(puerta=="AND"&& this.condicion1!=null && this.condicion2!=null){
+					return  this.condicion1.operacionN() +" Y "+ this.condicion2.operacionN();
+				}
+			
+				if(puerta=="OR"&& this.condicion1!=null && this.condicion2!=null){
+					return  this.condicion1.operacionN() +" O "+ this.condicion2.operacionN();
+				}
+			}else{
+				
+				return this.puerta+"="+this.condicion1+" Hasta "+this.puerta+"<="+this.condicion2;
+				
 			}
 		}
 
@@ -508,7 +576,7 @@ Modelo = {
 						result = this.obtenerNodo(nd[0].id,nd[0].className.split(" "));
 					}
 
-					nodo = new Modelo.Sentencia(aux[0].id,null,null,"ph",result,null,null,null);
+					nodo = new Modelo.Sentencia(aux[0].id,null,null,"ph",valor[1].value,valor[2].value,valor[0].value,null);
 					
 					break;
 					
@@ -550,11 +618,11 @@ Modelo = {
 		
 		this.simular = function(bloque){
 			
-			var fin = new Date();
+			/*var fin = new Date();
 			if(fin-this.tiempoIni>this.tiempoLimite){
 				console.log("reboto");
 				return false;
-			}
+			}*/
 
 			
 			if(bloque instanceof Modelo.Definicion){
@@ -641,9 +709,10 @@ Modelo = {
 				}
 				else if(bloque.tipo=="ph"){
 					
-					var cant = bloque.evaluarCondicion();
+					
 					if(bloque.nodoHijo!=null)					
-					for(i=0;i<cant;i++){
+					for(var k=parseInt(bloque.condicion1);k<=parseInt(bloque.condicion2);k++){
+						Tabla.setValor(bloque.puerta,k);
 						if(this.simular(bloque.nodoHijo)==false)
 						break;
 					}
@@ -659,46 +728,47 @@ Modelo = {
 		
 		
 		
-		this.generarCodigo = function(bloque){
-
+		this.generarPseudocodigo = function(bloque){
 			
 			if(bloque instanceof Modelo.Definicion){
-				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Entero: "+bloque.variable+";\n");
+				$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"Entero = "+bloque.variable+";<br>");
 				if(bloque.nodoSig!=null){
-					this.generarCodigo(bloque.nodoSig)
+					this.generarPseudocodigo(bloque.nodoSig)
 				}
 				return null;
 			}
 			
 			if(bloque instanceof Modelo.Asignacion){
-				
 				if(bloque.valor instanceof Modelo.Operador){
-					$("#info_salida").attr("value",$("#info_salida").attr("value")+bloque.variable+": "+bloque.valor.operacion()+";\n");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+bloque.variable+" = "+bloque.valor.operacion()+";<br>");
 				}else{
-					$("#info_salida").attr("value",$("#info_salida").attr("value")+bloque.variable+": "+bloque.valor+";\n");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+bloque.variable+" = "+bloque.valor+";<br>");
 				}
 				
 				if(bloque.nodoSig!=null){
-					this.generarCodigo(bloque.nodoSig)
+					this.generarPseudocodigo(bloque.nodoSig)
 				}
 				return null;
 			}
 			
 			
 			if(bloque instanceof Modelo.Salida){
-				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Salida: "+bloque.salida()+";\n");
+				$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"ESCRIBIR "+bloque.salida()+";<br>");
 				if(bloque.nodoSig!=null){
-					this.generarCodigo(bloque.nodoSig);
+					this.generarPseudocodigo(bloque.nodoSig);
 				}
 				return null;
 			}
 			
 			if(bloque instanceof Modelo.Entrada){
 				
-				$("#info_salida").attr("value",$("#info_salida").attr("value")+bloque.valor+"=>"+bloque.variable+";\n");
+				if(bloque.valor!=null){
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+'ESCRIBIR "'+bloque.valor+'";<br>');
+				}
+				$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"LEER "+bloque.variable+";<br>");
 			
 				if(bloque.nodoSig!=null){
-					this.generarCodigo(bloque.nodoSig)
+					this.generarPseudocodigo(bloque.nodoSig)
 				}
 				
 				return null;
@@ -707,61 +777,319 @@ Modelo = {
 			if(bloque instanceof Modelo.Sentencia){
 				
 				if(bloque.tipo=="si"){
-					$("#info_salida").attr("value",$("#info_salida").attr("value")+"Si "+bloque.condicion()+";\n");
-					$("#info_salida").attr("value",$("#info_salida").attr("value")+"Inicio\n");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<strong> SI</strong> "+bloque.condicionpse()+";<br>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<div style='margin-left: "+$(Vista.buscarDiv($("#"+bloque.idBloque),".sen_med2_if")).attr("nivel")+"em'>");
 					if(bloque.nodoHijo!=null){
-						this.generarCodigo(bloque.nodoHijo);
+						
+						this.generarPseudocodigo(bloque.nodoHijo);
+						
 					}
-					$("#info_salida").attr("value",$("#info_salida").attr("value")+"Fin si;\n");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"</div>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<strong>FIN SI;</strong><br>");
+					
 				}
 				else if(bloque.tipo=="m"){
-					$("#info_salida").attr("value",$("#info_salida").attr("value")+"Mientras "+bloque.condicion()+";\n");
-					$("#info_salida").attr("value",$("#info_salida").attr("value")+"Inicio\n");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<strong>MIENTRAS</strong> "+bloque.condicionpse()+";<br>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<div style='margin-left: "+$(Vista.buscarDiv($("#"+bloque.idBloque),".sen_med2_m")).attr("nivel")+"em'>");
 					
 					if( bloque.nodoHijo!=null){
 						
-						this.generarCodigo(bloque.nodoHijo);
+						this.generarPseudocodigo(bloque.nodoHijo);
 					}
-					$("#info_salida").attr("value",$("#info_salida").attr("value")+"Fin Mientras;\n");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"</div>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<strong>FIN MIENTRAS</strong>;<br>");
 				}
 				else if(bloque.tipo=="rh"){
-					$("#info_salida").attr("value",$("#info_salida").attr("value")+"Haga\n");
-					$("#info_salida").attr("value",$("#info_salida").attr("value")+"Inicio\n");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<strong>HAGA</strong><br>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<div style='margin-left: "+$(Vista.buscarDiv($("#"+bloque.idBloque),".sen_med2_rh")).attr("nivel")+"em'>");
 					
 					if(bloque.nodoHijo!=null){
-						this.generarCodigo(bloque.nodoHijo)
+						this.generarPseudocodigo(bloque.nodoHijo)
 						
 					}
-					$("#info_salida").attr("value",$("#info_salida").attr("value")+"Mientras "+bloque.condicion()+";\n");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"</div>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<strong>MIENTRAS</strong> "+bloque.condicionpse()+";<br>");
 				}
 				else if(bloque.tipo=="si-no"){
-					$("#info_salida").attr("value",$("#info_salida").attr("value")+"Si "+bloque.condicion()+";\n");
-					$("#info_salida").attr("value",$("#info_salida").attr("value")+"Inicio\n");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<strong>SI</strong> "+bloque.condicionpse()+";<br>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<div style='margin-left: "+$(Vista.buscarDiv($("#"+bloque.idBloque),".sen_med2_if_else")).attr("nivel")+"em'>");
 					
 					if(bloque.nodoHijo!=null){
-						this.generarCodigo(bloque.nodoHijo);
+						this.generarPseudocodigo(bloque.nodoHijo);
 					}
-					$("#info_salida").attr("value",$("#info_salida").attr("value")+"No\n");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"</div>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<strong>NO</strong><br>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<div style='margin-left: "+$(Vista.buscarDiv($("#"+bloque.idBloque),".sen_med2_if_else")).attr("nivel")+"em'>");
 					if(bloque.hij2!=null){
-						this.generarCodigo(bloque.hij2);
+						this.generarPseudocodigo(bloque.hij2);
 					}
-					$("#info_salida").attr("value",$("#info_salida").attr("value")+"Fin Si-No;\n");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"</div>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<strong>FIN SI-NO;</strong><br>");
 				}
 				else if(bloque.tipo=="ph"){
 					
-					$("#info_salida").attr("value",$("#info_salida").attr("value")+"Para"+bloque.condicion()+";\n");
-					$("#info_salida").attr("value",$("#info_salida").attr("value")+"Inicio\n");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<strong>PARA</strong> "+bloque.condicion()+";<br>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<div style='margin-left: "+$(Vista.buscarDiv($("#"+bloque.idBloque),".sen_med2_ph")).attr("nivel")+"em'>");
 					
 					if(bloque.nodoHijo!=null)					
-						this.generarCodigo(bloque.nodoHijo);
-					$("#info_salida").attr("value",$("#info_salida").attr("value")+"Fin Para-Hasta;\n");
+						this.generarPseudocodigo(bloque.nodoHijo);
+					
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"</div>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<strong>FIN PARA-HASTA;</strong><br>");
 						
 					
 				}
 				
 				if(bloque.nodoSig!=null){
-					this.generarCodigo(bloque.nodoSig);
+					this.generarPseudocodigo(bloque.nodoSig);
 				}
+				
+				
+				return null;
+			}
+		},
+		
+		
+		this.generarCpp = function(bloque){
+			
+			if(bloque instanceof Modelo.Definicion){
+				$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"int "+bloque.variable+";<br>");
+				if(bloque.nodoSig!=null){
+					this.generarCpp(bloque.nodoSig)
+				}
+				return null;
+			}
+			
+			if(bloque instanceof Modelo.Asignacion){
+				if(bloque.valor instanceof Modelo.Operador){
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+bloque.variable+" = "+bloque.valor.operacion()+";<br>");
+				}else{
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+bloque.variable+" = "+bloque.valor+";<br>");
+				}
+				
+				if(bloque.nodoSig!=null){
+					this.generarCpp(bloque.nodoSig)
+				}
+				return null;
+			}
+			
+			
+			if(bloque instanceof Modelo.Salida){
+				$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"cout  &lt;&lt;"+bloque.salidaCpp()+";<br>");
+				if(bloque.nodoSig!=null){
+					this.generarCpp(bloque.nodoSig);
+				}
+				return null;
+			}
+			
+			if(bloque instanceof Modelo.Entrada){
+				
+				if(bloque.valor!=null){
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"cout  &lt;&lt;\""+bloque.valor+"\";<br>");
+				}
+				
+				$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"cin &gt;&gt;"+bloque.variable+";<br>");
+			
+				if(bloque.nodoSig!=null){
+					this.generarCpp(bloque.nodoSig)
+				}
+				
+				return null;
+			}
+			
+			if(bloque instanceof Modelo.Sentencia){
+				
+				if(bloque.tipo=="si"){
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"if ("+bloque.condicion()+"){<br>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<div style='margin-left: "+$(Vista.buscarDiv($("#"+bloque.idBloque),".sen_med2_if")).attr("nivel")+"em'>");
+					if(bloque.nodoHijo!=null){
+						
+						this.generarCpp(bloque.nodoHijo);
+						
+					}
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"</div>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"}<br>");
+					
+				}
+				else if(bloque.tipo=="m"){
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"while ("+bloque.condicion()+")<br>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<div style='margin-left: "+$(Vista.buscarDiv($("#"+bloque.idBloque),".sen_med2_m")).attr("nivel")+"em'>");
+					
+					if( bloque.nodoHijo!=null){
+						
+						this.generarCpp(bloque.nodoHijo);
+					}
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"</div>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"}<br>");
+				}
+				else if(bloque.tipo=="rh"){
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"do{<br>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<div style='margin-left: "+$(Vista.buscarDiv($("#"+bloque.idBloque),".sen_med2_rh")).attr("nivel")+"em'>");
+					
+					if(bloque.nodoHijo!=null){
+						this.generarCpp(bloque.nodoHijo)
+						
+					}
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"</div>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"}while ("+bloque.condicion()+");<br>");
+				}
+				else if(bloque.tipo=="si-no"){
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"if ("+bloque.condicion()+")<br>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<div style='margin-left: "+$(Vista.buscarDiv($("#"+bloque.idBloque),".sen_med2_if_else")).attr("nivel")+"em'>");
+					
+					if(bloque.nodoHijo!=null){
+						this.generarCpp(bloque.nodoHijo);
+					}
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"</div>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"}else{<br>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<div style='margin-left: "+$(Vista.buscarDiv($("#"+bloque.idBloque),".sen_med2_if_else")).attr("nivel")+"em'>");
+					if(bloque.hij2!=null){
+						this.generarCpp(bloque.hij2);
+					}
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"</div>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"}<br>");
+				}
+				else if(bloque.tipo=="ph"){
+					
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"for("+bloque.puerta+"="+bloque.condicion1+";"+bloque.puerta+"<="+bloque.condicion2+";"+bloque.puerta+"++){<br>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<div style='margin-left: "+$(Vista.buscarDiv($("#"+bloque.idBloque),".sen_med2_ph")).attr("nivel")+"em'>");
+					
+					if(bloque.nodoHijo!=null)					
+						this.generarCpp(bloque.nodoHijo);
+					
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"</div>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"}<br>");
+						
+					
+				}
+				
+				if(bloque.nodoSig!=null){
+					this.generarCpp(bloque.nodoSig);
+				}
+				
+				
+				return null;
+			}
+		},
+		
+		this.generarN = function(bloque){
+			
+			if(bloque instanceof Modelo.Definicion){
+				$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"VAR <br>");
+				$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"ENTERO "+bloque.variable+"<br>");
+				if(bloque.nodoSig!=null){
+					this.generarN(bloque.nodoSig)
+				}
+				return null;
+			}
+			
+			if(bloque instanceof Modelo.Asignacion){
+				if(bloque.valor instanceof Modelo.Operador){
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+bloque.variable+" := "+bloque.valor.operacion()+"<br>");
+				}else{
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+bloque.variable+" := "+bloque.valor+"<br>");
+				}
+				
+				if(bloque.nodoSig!=null){
+					this.generarN(bloque.nodoSig)
+				}
+				return null;
+			}
+			
+			
+			if(bloque instanceof Modelo.Salida){
+				$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"escribirnl "+bloque.salida()+"<br>");
+				if(bloque.nodoSig!=null){
+					this.generarN(bloque.nodoSig);
+				}
+				return null;
+			}
+			
+			if(bloque instanceof Modelo.Entrada){
+				
+				if(bloque.valor!=null){
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"escribirnl \""+bloque.valor+"\"<br>");
+				}
+				
+				$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"leer "+bloque.variable+"<br>");
+			
+				if(bloque.nodoSig!=null){
+					this.generarN(bloque.nodoSig)
+				}
+				
+				return null;
+			}
+			
+			if(bloque instanceof Modelo.Sentencia){
+				
+				if(bloque.tipo=="si"){
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"si ("+bloque.condicionN()+") entonces<br>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<div style='margin-left: "+$(Vista.buscarDiv($("#"+bloque.idBloque),".sen_med2_if")).attr("nivel")+"em'>");
+					if(bloque.nodoHijo!=null){
+						
+						this.generarN(bloque.nodoHijo);
+						
+					}
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"</div>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"fin si<br>");
+					
+				}
+				else if(bloque.tipo=="m"){
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"mientras ("+bloque.condicionN()+") hacer<br>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<div style='margin-left: "+$(Vista.buscarDiv($("#"+bloque.idBloque),".sen_med2_m")).attr("nivel")+"em'>");
+					
+					if( bloque.nodoHijo!=null){
+						
+						this.generarN(bloque.nodoHijo);
+					}
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"</div>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"fin mientras<br>");
+				}
+				else if(bloque.tipo=="rh"){
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"repita<br>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<div style='margin-left: "+$(Vista.buscarDiv($("#"+bloque.idBloque),".sen_med2_rh")).attr("nivel")+"em'>");
+					
+					if(bloque.nodoHijo!=null){
+						this.generarN(bloque.nodoHijo)
+						
+					}
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"</div>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"hasta ("+bloque.condicionN()+")<br>");
+				}
+				else if(bloque.tipo=="si-no"){
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"si ("+bloque.condicionN()+")<br>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<div style='margin-left: "+$(Vista.buscarDiv($("#"+bloque.idBloque),".sen_med2_if_else")).attr("nivel")+"em'>");
+					
+					if(bloque.nodoHijo!=null){
+						this.generarN(bloque.nodoHijo);
+					}
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"</div>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"sino<br>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<div style='margin-left: "+$(Vista.buscarDiv($("#"+bloque.idBloque),".sen_med2_if_else")).attr("nivel")+"em'>");
+					if(bloque.hij2!=null){
+						this.generarN(bloque.hij2);
+					}
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"</div>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"fin si<br>");
+				}
+				else if(bloque.tipo=="ph"){
+					
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"para "+bloque.puerta+" desde "+bloque.condicion1+" hasta "+bloque.condicion2+" hacer<br>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<div style='margin-left: "+$(Vista.buscarDiv($("#"+bloque.idBloque),".sen_med2_ph")).attr("nivel")+"em'>");
+					
+					if(bloque.nodoHijo!=null)					
+						this.generarN(bloque.nodoHijo);
+					
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"</div>");
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"fin para<br>");
+						
+					
+				}
+				
+				if(bloque.nodoSig!=null){
+					this.generarN(bloque.nodoSig);
+				}
+				
 				
 				return null;
 			}
@@ -997,7 +1325,7 @@ Vista = {
 				}
 
 			}else{
-				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Ingresa una expresion valida.\n");
+				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Ingresa una expresión valida.\n");
 				$(input).attr("value","");
 			}
 			
@@ -1009,7 +1337,7 @@ Vista = {
 	incrementoSentencias:function(objeto){
 
 		var totalHeight=0;
-		
+		if($(objeto)[0].parentElement.id!="area_trabajo"){
 
 		for(i=1;i<$(objeto)[0].parentElement.childElementCount+1;i++){
 			
@@ -1018,6 +1346,8 @@ Vista = {
 		}
 		
 		a = $("#"+$($(objeto)[0].parentElement).attr("padre"));
+		console.log(a);
+		
 		if(a[0].className.indexOf("sentencia_general_if")==0){
 			b=Vista.buscarDiv(a,".sen_med_if");
 			c=Vista.buscarDiv(a,".sen_med2_if");
@@ -1054,10 +1384,11 @@ Vista = {
 				d=Vista.buscarDiv(a,".sen_sup_if_else_gen");
 				e=Vista.buscarDiv(a,".sen_medio_if_else");
 				f=Vista.buscarDiv(a,".sen_med2p_if_else");
-				acum=d[0].clientHeight+e[0].clientHeight+f[0].clientHeight;
+				acum=d[0].clientHeight+e[0].clientHeight+f[f.length-1].clientHeight;
 			}else{
-				b=Vista.buscarDiv(a,".sen_med2p_if_else");
-			    c=Vista.buscarDiv(a,".sen_medos_if_else");
+				b=Vista.buscarDiv(a,".sen_med2p_if_else [padre='"+a[0].id+"']");console.log(b);
+			   	// c=Vista.buscarDiv(a,".sen_medos_if_else");
+				c=$(b[0].parentElement);
 				d=Vista.buscarDiv(a,".sen_sup_if_else_gen");
 				e=Vista.buscarDiv(a,".sen_medio_if_else");
 				f=Vista.buscarDiv(a,".sen_med_if_else");
@@ -1066,12 +1397,13 @@ Vista = {
 			
 		}
 		
-		a[0].style.height =(totalHeight+acum+88);
-		b[0].style.height =(totalHeight+60);
-		c[0].style.height =(totalHeight+60);
+		a[0].style.height =(totalHeight+acum+108);
+		b[0].style.height =(totalHeight+80);
+		c[0].style.height =(totalHeight+80);
 
 		if($($(objeto)[0].parentElement).attr("nivel")>1){
 			Vista.incrementoSentencias($("#"+$($(objeto)[0].parentElement).attr("padre")));
+		}
 		}
 
 	},
@@ -1146,6 +1478,7 @@ Vista = {
 		}
 		
 		
+		Vista.incrementoSentencias(a);
 		 
 
 	 },
@@ -1170,7 +1503,7 @@ Vista = {
 		
 		$(op).remove();
 		$(input[0]).attr("style","display:block");
-		$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se elimino operador logico.\n");
+		$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se eliminó operador lógico.\n");
 		
 	},
 	eliminarOpM:function(event){
@@ -1180,7 +1513,7 @@ Vista = {
 		var input=Vista.buscarDiv(fant,".input_ph");
 		$(op).remove();
 		$(input[0]).attr("style","display:block");
-		$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se elimino operador matematico.\n");
+		$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se eliminó operador matemático.\n");
 		
 	}
 }
@@ -1204,9 +1537,19 @@ Controlador = {
 		var tot=$("#area_trabajo").find(".definicion").length;
 		var error=false;
 		
+		console.log($("#area_trabajo input[type='text']"));
+		
+		$("#area_trabajo input[type='text']").each(
+		function(){
+			if(this.value=="")
+				$(this).addClass("errores");
+		}
+		);
+		
 		for(i=0;i<tot;i++){
 			if($($($("#area_trabajo").find(".definicion")[i]).find(":text")[0])[0].value==""){
-				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Error: campo en bloque definicion obligatorio.\n");
+				//$($($("#area_trabajo").find(".definicion")[i]).find(":text")[0]).addClass("errores");
+				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Error: campo en bloque definición obligatorio.\n");
 				error = true;
 				break;
 			}
@@ -1216,7 +1559,7 @@ Controlador = {
 		for(i=0;i<tot;i++){
 			if($($("#area_trabajo").find(".asignacion")[i]).find(".operador_mate").length==0){
 				if($($($("#area_trabajo").find(".asignacion")[i]).find(":text")[0])[0].value==""){
-					$("#info_salida").attr("value",$("#info_salida").attr("value")+"Error: campo en bloque asignacion obligatorio.\n");
+					$("#info_salida").attr("value",$("#info_salida").attr("value")+"Error: campo en bloque asignación obligatorio.\n");
 					error = true;
 					break;
 				}
@@ -1297,14 +1640,17 @@ Controlador = {
 		tot=$("#area_trabajo").find(".sentencia_general_ph").length;
 		for(i=0;i<tot;i++){
 			
-				if($($($("#area_trabajo").find(".sentencia_general_ph")[i]).find(".fantasma")[0]).find(".operador_mate").length==0 && $($($("#area_trabajo").find(".sentencia_general_ph")[i]).find(":text")[0])[0].value==""){
+				if($($($("#area_trabajo").find(".sentencia_general_ph")[i]).find(":text")[0])[0].value=="" || $($($("#area_trabajo").find(".sentencia_general_ph")[i]).find(":text")[1])[0].value==""){
 					$("#info_salida").attr("value",$("#info_salida").attr("value")+"Error: campo en sentencia obligatorio.\n");
+					
+					
 					error = true;
 					break;
 				}
 			
 		}
 		
+		setTimeout(function(){$(".errores").removeClass("errores")},10000);
 		return error;
 	},
 	
@@ -1325,13 +1671,81 @@ Controlador = {
 		
 		
 		if(!this.validarCodigo()){
-			$("#info_salida").attr("value",$("#info_salida").attr("value")+"Inicio del codigo del algoritmo.\n");
-			Simulador.generarCodigo(Arbol.inicio);
-			$("#info_salida").attr("value",$("#info_salida").attr("value")+"Fin del codigo del algoritmo.\n");
 			$("#area_salida").attr("value","");
-			$("#info_salida").attr("value",$("#info_salida").attr("value")+"Incio de la ejecucion.\n");
+			$("#area_salida").attr("value",$("#area_salida").attr("value")+"Inicio de la ejecución.\n");
 			Simulador.simular(Arbol.inicio);
-			$("#info_salida").attr("value",$("#info_salida").attr("value")+"Fin de la ejecucion.\n");
+			$("#area_salida").attr("value",$("#area_salida").attr("value")+"Fin de la ejecución.\n");
+		}
+		
+		
+	
+	},
+	
+	iniciarCodigodos: function(){
+		Tabla = null;
+		Tabla = new Modelo.tablaSimbolos;
+		
+		Arbol = null;
+		Arbol = new Modelo.arbol;
+		
+		Simulador = null;
+		Simulador = new Modelo.simulacion;
+		
+		Tabla.crearTablaSimbolos();
+		console.log(Tabla);
+		Arbol.crearArbol();
+		console.log(Arbol.inicio);
+		
+		
+		if(!this.validarCodigo()){
+			$("#codigo_salida").attr("href","data:text/html,");
+			
+			$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"Inicio del codigo del algoritmo en pseudocodigo:<br>");
+			$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<div style='background-color:#cacaca'>");
+			Simulador.generarPseudocodigo(Arbol.inicio);
+			$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"</div>");
+			$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"Fin del codigo del algoritmo.<br>");
+			
+			
+			$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"Inicio del codigo del algoritmo en C++:<br>");
+			$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<div style='background-color:#cacaca'>");
+			$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"#include &lt;iostream.h\&gt;<br>");
+			$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"int main(){<br>");
+			Simulador.generarCpp(Arbol.inicio);
+			$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"}<br>");
+			$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"</div>");
+			$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"Fin del codigo del algoritmo.<br>");
+			
+			
+			
+			
+			
+			$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"Inicio del codigo del algoritmo en Ñ#	:<br>");
+			$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"<div style='background-color:#cacaca'>");
+			$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"ALGORITMO ModGrafiCode<br>");
+			
+			var inicioAux = Arbol.inicio;
+			
+			if(inicioAux instanceof Modelo.Definicion){
+				$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"VAR<br>");
+				
+				do{
+					$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"ENTERO "+inicioAux.variable+"<br>");
+					
+					inicioAux = inicioAux.nodoSig;
+
+				}while(inicioAux instanceof Modelo.Definicion);
+				
+			}
+			
+			$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"INICIO<br>");
+			Simulador.generarN(inicioAux);
+			$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"FIN<br>");
+			$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"</div>");
+			$("#codigo_salida").attr("href",$("#codigo_salida").attr("href")+"Fin del codigo del algoritmo.<br>");
+			
+		}else{
+			$("#codigo_salida").attr("href","data:text/html,Mientras halla errores en los bloques no se puede generar codigo");
 		}
 		
 		
@@ -1392,6 +1806,8 @@ Controlador = {
 			accept: ".drag_op",
 			hoverClass: "higlight",
       		drop: function( event, ui ) {
+				if(Vista.buscarDiv(this,".operador_logico")!=false)
+				Vista.buscarDiv(this,".operador_logico").remove();
 				Vista.buscarDiv(this,".input_op").attr("style","display:none;");
 				clon = $(ui.draggable).clone();
 				$(this).append(clon);
@@ -1407,6 +1823,8 @@ Controlador = {
 			accept: ".drag_opm",
 			hoverClass: "higlight",
       		drop: function( event, ui ) {
+				if(Vista.buscarDiv(this,".operador_mate")!=false)
+				Vista.buscarDiv(this,".operador_mate").remove();
 				Vista.buscarDiv(this,".input_ph").attr("style","display:none;");
 				clon = $(ui.draggable).clone();
 				clon.attr("id",enumerador.id);
@@ -1452,7 +1870,7 @@ Controlador = {
 				$(this).addClass("basurero");
 				$(ui.draggable).remove();
 				//$(".higlight").remove();
-				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se elimino un bloque.\n");
+				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se eliminó un bloque.\n");
 			},
 			over: function(ev, ui) {
 				$(this).removeClass("basurero");
@@ -1556,17 +1974,13 @@ Controlador = {
 		var clases = bloque[0].className.split(" ");
 
 		$(bloque[0]).addClass("borrable");
-		if(bloque[0].parentElement.id!="area_trabajo" && (clases[0]!="operador_logico" && clases[0]!="operador_mate")){
-			
-			Vista.incrementoSentencias(bloque);
-
-		}
+		
 		
 
 		switch (clases[0]){
 			
 			case "definicion":
-				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se agrego un bloque de definicion.\n");
+				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se agregó un bloque Definición.\n");
 				inputDef = Vista.buscarDiv(bloque,":input");
 				$(inputDef[0]).attr("name","def");
 				inputDef[0].addEventListener("change",Vista.actualizarVariables,false);
@@ -1574,7 +1988,7 @@ Controlador = {
 				break;
 					
 			case "asignacion":
-				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se agrego un bloque de asignacion.\n");
+				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se agregó un bloque Asignación.\n");
 				input = Vista.buscarDiv(bloque,":input");
 				selectAsig = input[0];
 				textAsig= input[1];
@@ -1587,14 +2001,14 @@ Controlador = {
 				
 				
 			case "entrada":
-				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se agrego un bloque de entrada.\n");
+				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se agregó un bloque Entrada.\n");
 				selectEntr = Vista.buscarDiv(bloque,":input");
 				$(selectEntr[1]).attr("name","asig");
 				Vista.cargarLista();
 				break;
 				
 			case "salida":
-				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se agrego un bloque de salida.\n");
+				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se agregó un bloque Salida.\n");
 				selectSali =Vista.buscarDiv(bloque,":input");
 				$(selectSali[0]).attr("name","asig");
 				Vista.cargarLista();
@@ -1602,7 +2016,7 @@ Controlador = {
 				
 				
 			case "operador_logico":
-				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se agrego un operador logico.\n");
+				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se agregó un Operador Lógico.\n");
 				$(bloque[0]).addClass($(bloque)[0].parentElement.className.split(" ")[1]);
 				x=Vista.buscarDiv(bloque,".borrar");
 				$(x).attr("style","display:block");
@@ -1620,7 +2034,7 @@ Controlador = {
 				break;
 				
 			case "operador_mate":
-				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se agrego un operador matematico.\n");
+				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se agregó un Operador Matemático.\n");
 				x=Vista.buscarDiv(bloque,".borrar");
 				$(x).attr("style","display:block");
 				$(x)[0].addEventListener("click",Vista.eliminarOpM,false);
@@ -1636,7 +2050,10 @@ Controlador = {
 			
 			
 			case "sentencia_general_if":
-				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se agrego una sentencia Si.\n");
+				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se agregó una condición Si.\n");
+				$(bloque).css("height",140);
+				$(Vista.buscarDiv(bloque,".sen_med2_if")).css("height",80);
+				$(Vista.buscarDiv(bloque,".sen_med_if")).css("height",80);
 				var fant=$(Vista.buscarDiv(bloque,".fant"));
 				for(i=0;i<fant.length;i++){
 					$(fant[i]).addClass($(bloque)[0].id);
@@ -1650,7 +2067,10 @@ Controlador = {
 				break;
 				
 			case "sentencia_general_rh":
-				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se agrego una sentencia Haga-Mientras.\n");
+				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se agregó un ciclo Haga-Mientras.\n");
+				$(bloque).css("height",140);
+				$(Vista.buscarDiv(bloque,".sen_med2_rh")).css("height",80);
+				$(Vista.buscarDiv(bloque,".sen_med_rh")).css("height",80);
 				var fant=$(Vista.buscarDiv(bloque,".fant"));
 				for(i=0;i<fant.length;i++){
 					$(fant[i]).addClass($(bloque)[0].id);
@@ -1663,7 +2083,10 @@ Controlador = {
 				break;
 				
 			case "sentencia_general_m":
-				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se agrego una sentencia Mientras.\n");
+				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se agregó un ciclo Mientras.\n");
+				$(bloque).css("height",140);
+				$(Vista.buscarDiv(bloque,".sen_med2_m")).css("height",80);
+				$(Vista.buscarDiv(bloque,".sen_med_m")).css("height",80);
 				var fant=$(Vista.buscarDiv(bloque,".fant"));
 				for(i=0;i<fant.length;i++){
 					$(fant[i]).addClass($(bloque)[0].id);
@@ -1677,17 +2100,29 @@ Controlador = {
 				
 				
 			case "sentencia_general_ph":
-				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se agrego una sentencia Para-Hasta.\n");
+				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se agregó un ciclo Para-Hasta.\n");
+				$(bloque).css("height",140);
+				$(Vista.buscarDiv(bloque,".sen_med2_ph")).css("height",80);
+				$(Vista.buscarDiv(bloque,".sen_med_ph")).css("height",80);
 				Controlador.crearSortable(Vista.buscarDiv(bloque,".sen_med2_ph"));
-				Controlador.crearDroppable2(Vista.buscarDiv(bloque,".fantasma"));
-				va_num=Vista.buscarDiv(bloque,":input");
-				va_num[0].addEventListener("keypress",Vista.validarExpr,false);
-				va_num[0].addEventListener("change",Vista.compararExpr,false);
+				
+				var inputs = Vista.buscarDiv(bloque,":input");
+				$(inputs[0]).attr("name","asig");
+				Vista.cargarLista();
+				
+				inputs[1].addEventListener("keypress",Vista.validarNumero,false);
+				inputs[2].addEventListener("keypress",Vista.validarNumero,false);
 				Controlador.asignarNivel(bloque);
+				
 				break;
 				
 			case "sentencia_general_1if_else":
-				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se agrego una sentencia Si-No.\n");
+				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se agregó una condición Si-No.\n");
+				$(bloque).css("height",253);
+				$(Vista.buscarDiv(bloque,".sen_med_if_else")).css("height",80);
+				$(Vista.buscarDiv(bloque,".sen_med2p_if_else")).css("height",80);
+				$(Vista.buscarDiv(bloque,".sen_med2_if_else")).css("height",80);
+				$(Vista.buscarDiv(bloque,".sen_medos_if_else")).css("height",80);
 				var fant=$(Vista.buscarDiv(bloque,".fant"));
 				for(i=0;i<fant.length;i++){
 					$(fant[i]).addClass($(bloque)[0].id);
@@ -1701,11 +2136,11 @@ Controlador = {
 				break;			
 				
 			case "escribir":
-				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se agrego un bloque de salida.\n");
+				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se agregó un bloque Salida.\n");
 				break;
 				
 			case "escribir_salida":
-				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se agrego un bloque de salida.\n");
+				$("#info_salida").attr("value",$("#info_salida").attr("value")+"Se agregó un bloque Salida.\n");
 				selectSali =Vista.buscarDiv(bloque,":input");
 				$(selectSali[1]).attr("name","asig");
 				Vista.cargarLista();
@@ -1716,6 +2151,12 @@ Controlador = {
 				break;
 				
 			
+		}
+		
+		if(bloque[0].parentElement.id!="area_trabajo" && (clases[0]!="operador_logico" && clases[0]!="operador_mate")){
+			
+			Vista.incrementoSentencias(bloque);
+
 		}
 		
 		
