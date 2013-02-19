@@ -1458,13 +1458,18 @@ Vista = {
 		
 		
 		if(ob.target.selectedOptions[0].value!='--'){
-			
+			console.log("entro");
 				$(b)[0].style.height=60;
 				$(a)[0].style.height=b[0].clientHeight +acum;
 				aux=Vista.buscarDiv(b,".drop2");
 				$(aux[0]).attr("style","display:block;");
-				aux2=Vista.buscarDiv(aux,".input_op");
-				$(aux2[0]).attr("style","display:block;");
+				
+				if(Vista.buscarDiv(aux,".operador_logico")==false){
+					aux2=Vista.buscarDiv(aux,".input_op");
+					$(aux2[0]).attr("style","display:block;");
+				}
+				
+				
 			
 		}else{
 			$(b)[0].style.height=32;
